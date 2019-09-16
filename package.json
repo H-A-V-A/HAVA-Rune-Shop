@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "RuneShop",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Shop your virtual goods",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -38,7 +38,7 @@
       "git add"
     ]
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Henri, Austin, Victor, Allen",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
