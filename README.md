@@ -1,6 +1,9 @@
-# Authors
 
+# Members
+Henri!
 Victor Cheng
+Austin Trow
+Allen Guo
 
 # Boilermaker
 
