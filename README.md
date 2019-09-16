@@ -1,5 +1,7 @@
+
 # Members
-* Austin Trow
+Austin Trow
+Allen Guo
 
 # Boilermaker
 
