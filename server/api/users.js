@@ -18,14 +18,18 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId/cart', async (req, res, next) => {
   try {
-    const cart = await Order.findOne({
-      where: {
-        userId: req.params.userId,
-        status: 'open'
-      },
-      include: {model: OrderProduct, include: [Product]}
-    })
-    res.json(cart)
+    if (req.user && req.user.id === Number(req.params.userId)) {
+      const cart = await Order.findOne({
+        where: {
+          userId: req.params.userId,
+          status: 'open'
+        },
+        include: {model: OrderProduct, include: [Product]}
+      })
+      res.json(cart)
+    } else {
+      res.sendStatus(401)
+    }
   } catch (error) {
     next(error)
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getCartTHUNK} from '../store/order'
+import CartItem from './cartItem'
 
 class Cart extends React.Component {
   componentDidMount() {
@@ -14,9 +15,17 @@ class Cart extends React.Component {
       <div>
         <h2>Cart:</h2>
         <ul>
-          {this.props.cart.orderProducts.map(orderProduct => {
-            return <li key={orderProduct.id}>{orderProduct.product.name}</li>
-          })}
+          {this.props.cart ? (
+            this.props.cart.orderProducts.map(orderProduct => (
+              <CartItem
+                key={orderProduct.id}
+                product={orderProduct.product}
+                quantity={orderProduct.quantity}
+              />
+            ))
+          ) : (
+            <h2>No items in cart!</h2>
+          )}
         </ul>
       </div>
     )
