@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProductsTHUNK} from '../store/product'
+import {Link} from 'react-router-dom'
 
 class ProductList extends Component {
   componentDidMount() {
@@ -8,13 +9,16 @@ class ProductList extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="flex">
         {this.props.products ? (
           this.props.products.map(product => {
             return (
-              <div key={product.id}>
-                <h3>{product.name}</h3>
-                <img src={product.imageUrl} />
+              <div key={product.id} className="listed-product">
+                <Link to={`products/${product.id}`}>
+                  <h3>{product.name}</h3>
+                  <img src={product.imageUrl} />
+                </Link>
+                <button type="button">AddToCart</button>
               </div>
             )
           })
