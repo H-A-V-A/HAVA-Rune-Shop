@@ -1,23 +1,47 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getCartTHUNK} from '../store/order'
+import CartItem from './cartItem'
 
 class Cart extends React.Component {
+  constructor(props) {
+    super(props)
+    this.sumCart = this.sumCart.bind(this)
+  }
+
   componentDidMount() {
     this.props.getCart(this.props.user.id)
   }
 
-  render() {
+  sumCart() {
     console.log(this.props)
+    return this.props.cart.orderProducts.reduce((accum, orderProduct) => {
+      return accum + orderProduct.quantity * orderProduct.product.price
+    }, 0)
+  }
 
+  render() {
     return (
       <div>
         <h2>Cart:</h2>
-        <ul>
-          {this.props.cart.orderProducts.map(orderProduct => {
-            return <li key={orderProduct.id}>{orderProduct.product.name}</li>
-          })}
-        </ul>
+        <div className="flex">
+          {this.props.cart ? (
+            this.props.cart.orderProducts.map(orderProduct => (
+              <CartItem
+                key={orderProduct.id}
+                product={orderProduct.product}
+                quantity={orderProduct.quantity}
+              />
+            ))
+          ) : (
+            <h2>No items in cart!</h2>
+          )}
+        </div>
+        <h3>
+          Total:{' '}
+          {this.props.cart.orderProducts ? `${this.sumCart()} gp` : '0 gp'}
+        </h3>
+        <button type="button">CHECKOUT</button>
       </div>
     )
   }
