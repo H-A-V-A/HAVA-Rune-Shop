@@ -11,8 +11,6 @@ class ProductList extends Component {
   }
 
   handleAddToCart(productId) {
-    console.log('PRODUCT ID: ', productId)
-    console.log('USER ID: ', this.props.user.id)
     this.props.addToCart(this.props.user.id, productId)
   }
 
