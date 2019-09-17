@@ -26,7 +26,7 @@ const User = db.define('user', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue = ''
+    defaultValue: ''
   },
   googleId: {
     type: Sequelize.STRING
