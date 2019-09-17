@@ -37,10 +37,7 @@ class Cart extends React.Component {
             <h2>No items in cart!</h2>
           )}
         </div>
-        <h3>
-          Total:{' '}
-          {this.props.cart.orderProducts ? `${this.sumCart()} gp` : '0 gp'}
-        </h3>
+        <h3>Total: {this.props.cart ? `${this.sumCart()} gp` : '0 gp'}</h3>
         <button type="button">CHECKOUT</button>
       </div>
     )
