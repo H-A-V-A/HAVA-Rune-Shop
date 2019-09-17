@@ -8,7 +8,8 @@ import {
   UserHome,
   GuestHome,
   ProductList,
-  Cart
+  Cart,
+  SingleProduct
 } from './components'
 import {me} from './store'
 
@@ -27,6 +28,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/products" component={ProductList} />
+        <Route path="/products/:id" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
 
