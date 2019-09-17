@@ -1,5 +1,8 @@
 body {
+  color: white;
   font-family: sans-serif;
+  background-image: url(/images/wood-texture-by-elena-skripka.jpg);
+  background-size: 250px;
 }
 
 a {
@@ -8,6 +11,10 @@ a {
 
 label {
   display: block;
+}
+
+nav {
+  background-color: wheat;
 }
 
 nav a {
@@ -32,6 +39,7 @@ form div {
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  background-color: wheat;
   margin: 20px;
   padding: 20px;
   border: 1px solid rgba(0, 0, 0, 0.3);
