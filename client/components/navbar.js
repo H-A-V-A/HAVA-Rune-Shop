@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>RuneShop</h1>
+    <img id="logo" src="/images/HavasRuneshop.png" />
     <nav>
       {isLoggedIn ? (
         <div>

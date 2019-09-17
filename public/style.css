@@ -43,3 +43,8 @@ form div {
 .listed-product:hover {
   transform: scale(1.02);
 }
+
+#logo {
+  width: 50vw;
+  height: auto;
+}

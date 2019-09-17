@@ -30,6 +30,14 @@ export const getCartTHUNK = userId => {
   }
 }
 
+export const addToCartTHUNK = (userId, productId) => {
+  return async dispatch => {
+    await axios.post(`/api/users/${userId}/cart/add/${productId}`)
+    let {data} = await axios.get(`/api/users/${userId}/cart`)
+    dispatch(getCart(data))
+  }
+}
+
 /**
  * REDUCER
  */
