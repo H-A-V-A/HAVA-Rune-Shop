@@ -41,6 +41,14 @@ export const addToCartTHUNK = (userId, productId, qty) => {
   }
 }
 
+export const updateCartTHUNK = (userId, productId, qty) => {
+  return async dispatch => {
+    await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
+    let {data} = await axios.get(`/api/users/${userId}/cart`)
+    dispatch(getCart(data))
+  }
+}
+
 export const deleteItemTHUNK = (orderId, productId) => {
   return async dispatch => {
     await axios.delete(`/api/orders/${orderId}/${productId}`)

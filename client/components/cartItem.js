@@ -1,21 +1,60 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {deleteItemTHUNK} from '../store/order'
+import {deleteItemTHUNK, updateCartTHUNK} from '../store/order'
 
 class CartItem extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      quantity: 1
+    }
+    this.handleSelect = this.handleSelect.bind(this)
+  }
+
+  handleSelect(event) {
+    this.setState({
+      quantity: event.target.value
+    })
+    setTimeout(() => {
+      this.props.updateCart(
+        this.props.user.id,
+        this.props.product.id,
+        this.state.quantity
+      )
+    }, 0)
+  }
+
   render() {
     const product = this.props.product
+    let arr = []
+    for (let i = 0; i < 10; i++) {
+      arr.push(i + 1)
+    }
 
     return (
       <div className="listed-product">
         <img src={product.imageUrl} />
         <h4>Product: {product.name}</h4>
         <label htmlFor="quantity">Quantity:</label>
-        <select name="quantity">
-          <option value={this.props.quantity}>{this.props.quantity}</option>
+        <select name="quantity" onChange={this.handleSelect}>
+          {arr.map(index => {
+            if (index === this.props.quantity) {
+              return (
+                <option value={index} key={index} selected>
+                  {index}
+                </option>
+              )
+            } else {
+              return (
+                <option value={index} key={index}>
+                  {index}
+                </option>
+              )
+            }
+          })}
         </select>
         <strong>
-          Price: {product.price} <i className="fas fa-coins" />
+          Unit Price: {product.price} <i className="fas fa-coins" />
         </strong>
         <br />
         <button
@@ -30,12 +69,15 @@ class CartItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  orderId: state.orders.cart.id
+  orderId: state.orders.cart.id,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   deleteItem: (orderId, productId) =>
-    dispatch(deleteItemTHUNK(orderId, productId))
+    dispatch(deleteItemTHUNK(orderId, productId)),
+  updateCart: (userId, productId, qty) =>
+    dispatch(updateCartTHUNK(userId, productId, qty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem)
