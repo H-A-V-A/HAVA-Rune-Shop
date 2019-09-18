@@ -38,13 +38,14 @@ router.get('/:userId/cart', async (req, res, next) => {
 router.post('/:userId/cart/add/:id', async (req, res, next) => {
   try {
     const order = await Order.findOne({where: {userId: req.params.userId}})
-    console.log('orderId: ', order.id)
+    console.log('body: ', req.body)
 
     await OrderProduct.create({
-      quantity: 1,
+      quantity: req.body.qty,
       orderId: order.id,
       productId: req.params.id
     })
+
     res.status(201)
   } catch (error) {
     next(error)

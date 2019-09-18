@@ -11,7 +11,7 @@ class ProductList extends Component {
   }
 
   handleAddToCart(productId) {
-    this.props.addToCart(this.props.user.id, productId)
+    this.props.addToCart(this.props.user.id, productId, 1)
   }
 
   componentDidMount() {
@@ -19,17 +19,20 @@ class ProductList extends Component {
   }
   render() {
     return (
-      <div className="flex products-list">
+      <div className="flex wrap products-list">
         {this.props.products ? (
           this.props.products.map(product => {
             return (
               <div key={product.id} className="listed-product">
-
                 <Link to={`/products/${product.id}`}>
                   <h2>{product.name}</h2>
 
                   <img src={product.imageUrl} />
                 </Link>
+                <div>{product.stock}×</div>
+                <div>
+                  <i className="fas fa-coins" /> {product.price}
+                </div>
                 <button
                   type="button"
                   onClick={() => {
@@ -56,7 +59,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getAllProducts: () => dispatch(getProductsTHUNK()),
-  addToCart: (userId, productId) => dispatch(addToCartTHUNK(userId, productId))
+  addToCart: (userId, productId, qty) =>
+    dispatch(addToCartTHUNK(userId, productId, qty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList)
