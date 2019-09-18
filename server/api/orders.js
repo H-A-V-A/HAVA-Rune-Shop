@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {OrderProduct} = require('../db/models')
+const {OrderProduct, Order} = require('../db/models')
 module.exports = router
 
 router.delete('/:orderId/:productId', async (req, res, next) => {
@@ -10,6 +10,19 @@ router.delete('/:orderId/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {id: req.params.orderId}
+    })
+    await order.update({status: 'closed'})
+    await Order.create({status: 'open', userId: req.user.id})
     res.sendStatus(204)
   } catch (error) {
     next(error)

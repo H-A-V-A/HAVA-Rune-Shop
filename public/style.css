@@ -196,6 +196,14 @@ form div {
   filter: drop-shadow(2px 5px 5px rgba(0, 0, 0, 0.5));
 }
 
+.checkout-left {
+  flex-basis: 300px;
+}
+
+.checkout-right {
+  flex-basis: 300px;
+}
+
 @keyframes wiggle {
   0% {
     transform: rotate(0deg);

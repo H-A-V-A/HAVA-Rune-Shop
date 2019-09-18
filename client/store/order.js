@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const GET_CART = 'GET_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
+const CLEAR_CART = 'CLEAR_CART'
 
 /**
  * INITIAL STATE
@@ -21,6 +22,7 @@ const initialState = {
  */
 const getCart = cart => ({type: GET_CART, cart})
 const deleteItem = id => ({type: DELETE_ITEM, id})
+const clearCart = () => ({type: CLEAR_CART})
 /**
  * THUNK CREATORS
  */
@@ -32,7 +34,6 @@ export const getCartTHUNK = userId => {
 }
 
 export const addToCartTHUNK = (userId, productId, qty) => {
-  console.log(qty)
   return async dispatch => {
     await axios.post(`/api/users/${userId}/cart/add/${productId}`, {qty})
     let {data} = await axios.get(`/api/users/${userId}/cart`)
@@ -44,6 +45,13 @@ export const deleteItemTHUNK = (orderId, productId) => {
   return async dispatch => {
     await axios.delete(`/api/orders/${orderId}/${productId}`)
     dispatch(deleteItem(productId))
+  }
+}
+
+export const placeOrderTHUNK = orderId => {
+  return async dispatch => {
+    await axios.put(`/api/orders/${orderId}`)
+    dispatch(clearCart())
   }
 }
 
@@ -64,6 +72,8 @@ export default function(state = initialState, action) {
           })
         }
       }
+    case CLEAR_CART:
+      return {...state, cart: initialState.cart}
     default:
       return state
   }
