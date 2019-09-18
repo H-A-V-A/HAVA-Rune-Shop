@@ -32,9 +32,16 @@ export const getCartTHUNK = userId => {
 }
 
 export const addToCartTHUNK = (userId, productId, qty) => {
-  console.log(qty)
   return async dispatch => {
     await axios.post(`/api/users/${userId}/cart/add/${productId}`, {qty})
+    let {data} = await axios.get(`/api/users/${userId}/cart`)
+    dispatch(getCart(data))
+  }
+}
+
+export const updateCartTHUNK = (userId, productId, qty) => {
+  return async dispatch => {
+    await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
     let {data} = await axios.get(`/api/users/${userId}/cart`)
     dispatch(getCart(data))
   }
