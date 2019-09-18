@@ -63,7 +63,9 @@ router.put('/:userId/cart/update/:id', async (req, res, next) => {
 
 router.post('/:userId/cart/add/:id', async (req, res, next) => {
   try {
-    const cart = await Order.findOne({where: {userId: req.params.userId}})
+    const cart = await Order.findOne({
+      where: {userId: req.params.userId, status: 'open'}
+    })
 
     const orderProduct = await OrderProduct.findOne({
       where: {orderId: cart.id, productId: req.params.id}
