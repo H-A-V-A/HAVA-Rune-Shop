@@ -23,7 +23,7 @@ class Cart extends React.Component {
     return (
       <div className="content-body">
         <h2>Cart:</h2>
-        <div className="flex">
+        <div className="flex wrap">
           {this.props.cart ? (
             this.props.cart.orderProducts.map(orderProduct => (
               <CartItem
