@@ -12,7 +12,9 @@ class CartItem extends React.Component {
         <select name="quantity">
           <option value={this.props.quantity}>{this.props.quantity}</option>
         </select>
-        <strong>Price: {product.price}</strong>
+        <strong>
+          Price: {product.price} <i className="fas fa-coins" />
+        </strong>
         <br />
         <button type="button">Remove Item</button>
       </div>

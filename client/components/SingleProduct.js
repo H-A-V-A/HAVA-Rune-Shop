@@ -15,13 +15,23 @@ class SingleProduct extends Component {
       price
     } = this.props.selectedProduct
     return (
-      <div>
+      <div className="content-body">
         <h1>{name}</h1>
-        <img src={imageUrl} />
-        <p>{description}</p>
-        <p>Stock: {stock}</p>
-        <p>Price: {price} X Gold pieces</p>
-        <button type="button">AddToCart</button>
+        <div className="flex">
+          <div>
+            <img src={imageUrl} />
+          </div>
+          <div className="item-detail">
+            <h2>{description}</h2>
+            <p>Stock: {stock}</p>
+            <p>
+              Price: {price} <i className="fas fa-coins" />
+            </p>
+            <button type="button">
+              Add To Cart <i className="fas fa-cart-plus" />
+            </button>
+          </div>
+        </div>
       </div>
     )
   }

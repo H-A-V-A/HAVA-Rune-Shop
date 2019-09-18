@@ -9,7 +9,7 @@ const GuestHome = props => {
   // const {email} = props
 
   return (
-    <div>
+    <div className="content-body">
       <h3>Welcome to RuneShop</h3>
     </div>
   )

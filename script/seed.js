@@ -15,68 +15,91 @@ async function seed() {
 
   const products = await Promise.all([
     Product.create({
-      name: 'easter egg',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/thumb/7/74/Easter_egg_detail.png/200px-Easter_egg_detail.png?e96cb',
-      description: 'look at all the pretty colors',
+      name: 'Health Potion',
+      imageUrl: '/images/products/potionRed.png',
+      description: 'Tastes like fruit punch.',
       stock: 500,
+      price: 750
+    }),
+    Product.create({
+      name: 'Mana Potion',
+      imageUrl: '/images/products/potionBlue.png',
+      description: 'Tastes blue.',
+      stock: 500,
+      price: 750
+    }),
+    Product.create({
+      name: 'Stamina Potion',
+      imageUrl: '/images/products/potionGreen.png',
+      description: 'Not sure what it tastes like.',
+      stock: 500,
+      price: 750
+    }),
+    Product.create({
+      name: 'Bag of Infinite Space',
+      imageUrl: '/images/products/backpack.png',
+      description: 'Fits two items.',
+      stock: 200,
+      price: 7500
+    }),
+    Product.create({
+      name: 'Treasure Seeker Map',
+      imageUrl: '/images/products/map.png',
+      description: 'It leads to nothing.',
+      stock: 300,
       price: 1200
     }),
     Product.create({
-      name: 'rune scimitar',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/2/25/Rune_scimitar_detail.png?73c56',
-      description: 'It is sharp',
-      stock: 15,
-      price: 42000
+      name: 'Scroll of Knowledge',
+      imageUrl: '/images/products/scroll.png',
+      description:
+        'Actually just the Treasure Seeker Map rolled up, but now 2× cooler looking.',
+      stock: 300,
+      price: 2400
     }),
     Product.create({
-      name: 'party hat (red)',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/thumb/d/dd/Red_partyhat_detail.png/240px-Red_partyhat_detail.png?b9481',
-      description: 'so expensive. it is a party',
-      stock: 3,
-      price: 200000
+      name: 'Mystical Letter',
+      imageUrl: '/images/products/envelope.png',
+      description:
+        'If you are thinking it is just a folded up Treasure Seeker Map, you might be correct.',
+      stock: 300,
+      price: 3600
     }),
     Product.create({
-      name: 'party hat (yellow)',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/thumb/2/24/Yellow_partyhat_detail.png/240px-Yellow_partyhat_detail.png?d7f85',
-      description: 'so expensive. it is a party, feeling yellow',
-      stock: 6,
-      price: 200000
+      name: 'The Forbidden Tome',
+      imageUrl: '/images/products/tome.png',
+      description:
+        'If you look closely, you can see the pages are all made of the same map.',
+      stock: 150,
+      price: 6000
     }),
     Product.create({
-      name: 'party hat (blue)',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/thumb/9/92/Blue_partyhat_detail.png/240px-Blue_partyhat_detail.png?d81d8',
-      description: 'BLUE PARTY BLUE PARTY I am blue dabidi dabidie',
-      stock: 2,
-      price: 200000
+      name: 'Bow of the Woodsman',
+      imageUrl: '/images/products/bow.png',
+      description: 'This bow is great for squirrels.',
+      stock: 75,
+      price: 15000
     }),
     Product.create({
-      name: 'party hat (purple)',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/thumb/4/4d/Purple_partyhat_detail.png/240px-Purple_partyhat_detail.png?a8d1a',
-      description: 'PURPLE is not a real color your eyes are deceiving you',
-      stock: 7,
-      price: 200000
+      name: 'Mighty Bow of the Woodsman',
+      imageUrl: '/images/products/upg_bow.png',
+      description: 'This bow is great for mighty squirrels.',
+      stock: 50,
+      price: 30000
     }),
     Product.create({
-      name: 'party hat (green)',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/thumb/0/08/Green_partyhat_detail.png/240px-Green_partyhat_detail.png?678bf',
-      description: 'Green Day all day everyday',
-      stock: 4,
-      price: 200000
+      name: 'Dagger of Sharpness',
+      imageUrl: '/images/products/dagger.png',
+      description: 'The result of a sword being sharpened too much.',
+      stock: 100,
+      price: 15000
     }),
     Product.create({
-      name: 'party hat (white)',
-      imageUrl:
-        'https://oldschool.runescape.wiki/images/thumb/2/22/White_partyhat_detail.png/240px-White_partyhat_detail.png?d7f85',
-      description: 'So boring who would ever choose this',
-      stock: 2,
-      price: 200000
+      name: 'Gold Dagger of Sharpness',
+      imageUrl: '/images/products/upg_dagger.png',
+      description: 'Maybe adding some gold will entice you to buy this.',
+      stock: 50,
+      price: 25000
     })
   ])
 

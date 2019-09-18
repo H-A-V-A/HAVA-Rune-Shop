@@ -22,7 +22,7 @@ class Cart extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="content-body">
         <h2>Cart:</h2>
         <div className="flex">
           {this.props.cart ? (
@@ -37,7 +37,10 @@ class Cart extends React.Component {
             <h2>No items in cart!</h2>
           )}
         </div>
-        <h3>Total: {this.props.cart ? `${this.sumCart()} gp` : '0 gp'}</h3>
+        <h3>
+          Total: {this.props.cart ? `${this.sumCart()} ` : '0 '}
+          <i className="fas fa-coins" />
+        </h3>
         <button type="button">CHECKOUT</button>
       </div>
     )
