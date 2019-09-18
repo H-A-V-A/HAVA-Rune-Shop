@@ -88,17 +88,3 @@ router.post('/:userId/cart/add/:id', async (req, res, next) => {
     next(error)
   }
 })
-
-router.delete('/cart/delete', async (req, res, next) => {
-  try {
-    await OrderProduct.delete({
-      where: {
-        orderId: req.body.orderId,
-        productId: req.body.productId
-      }
-    })
-    res.sendStatus(204)
-  } catch (error) {
-    next(error)
-  }
-})
