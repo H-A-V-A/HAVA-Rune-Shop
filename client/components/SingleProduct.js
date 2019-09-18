@@ -27,7 +27,6 @@ class SingleProduct extends Component {
   }
 
   handleSelect(event) {
-    console.log(this.state.quantity)
     this.setState({
       quantity: event.target.value
     })
@@ -35,7 +34,6 @@ class SingleProduct extends Component {
 
   render() {
     const {
-      id,
       name,
       description,
       imageUrl,

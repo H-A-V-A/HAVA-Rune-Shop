@@ -35,12 +35,38 @@ router.get('/:userId/cart', async (req, res, next) => {
   }
 })
 
+router.put('/:userId/cart/update/:id', async (req, res, next) => {
+  try {
+    if (req.user && req.user.id === Number(req.params.userId)) {
+      const cart = await Order.findOne({
+        where: {
+          userId: req.params.userId,
+          status: 'open'
+        },
+        include: {model: OrderProduct, include: [Product]}
+      })
+
+      const orderProduct = await OrderProduct.findOne({
+        where: {orderId: cart.id, productId: req.params.id}
+      })
+
+      orderProduct.update({
+        quantity: Number(req.body.qty)
+      })
+    } else {
+      res.sendStatus(401)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/:userId/cart/add/:id', async (req, res, next) => {
   try {
-    const order = await Order.findOne({where: {userId: req.params.userId}})
+    const cart = await Order.findOne({where: {userId: req.params.userId}})
 
     const orderProduct = await OrderProduct.findOne({
-      where: {orderId: order.id, productId: req.params.id}
+      where: {orderId: cart.id, productId: req.params.id}
     })
 
     if (orderProduct) {
@@ -50,7 +76,7 @@ router.post('/:userId/cart/add/:id', async (req, res, next) => {
     } else {
       await OrderProduct.create({
         quantity: req.body.qty,
-        orderId: order.id,
+        orderId: cart.id,
         productId: req.params.id
       })
     }
