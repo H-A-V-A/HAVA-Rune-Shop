@@ -21,6 +21,7 @@ const getProducts = products => ({type: GET_PRODUCTS, products})
 
 export const getProductsTHUNK = () => {
   return async dispatch => {
+    // don't forget try/catch
     const {data} = await axios.get('/api/products')
     dispatch(getProducts(data))
   }

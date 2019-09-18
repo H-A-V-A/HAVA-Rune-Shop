@@ -14,6 +14,7 @@ class Checkout extends React.Component {
   }
 
   sumCart() {
+    // might be a better place to put this so we're not recalculating in two different places
     return this.props.cart.orderProducts.reduce((accum, orderProduct) => {
       return accum + orderProduct.quantity * orderProduct.product.price
     }, 0)

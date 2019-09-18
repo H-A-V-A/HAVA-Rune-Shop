@@ -28,6 +28,8 @@ class CartItem extends React.Component {
     const product = this.props.product
     let arr = []
     for (let i = 0; i < 10; i++) {
+      // .....wut
+      // the nerve...the audacity
       arr.push(i + 1)
     }
 
@@ -38,6 +40,7 @@ class CartItem extends React.Component {
         <label htmlFor="quantity">Quantity:</label>
         <select name="quantity" onChange={this.handleSelect}>
           {arr.map(index => {
+            // better ways to do this
             if (index === this.props.quantity) {
               return (
                 <option value={index} key={index} selected>

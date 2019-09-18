@@ -21,6 +21,7 @@ router.put('/:orderId', async (req, res, next) => {
     const order = await Order.findOne({
       where: {id: req.params.orderId}
     })
+    // look into findOrCreate to possibly remove the need to create again here
     await order.update({status: 'closed'})
     await Order.create({status: 'open', userId: req.user.id})
     res.sendStatus(204)

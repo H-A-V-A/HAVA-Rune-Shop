@@ -6,6 +6,7 @@ const OrderProduct = require('./orderProduct')
 User.hasMany(Order)
 Order.belongsTo(User)
 
+// just so you know, could've done this as a through table
 Order.hasMany(OrderProduct)
 OrderProduct.belongsTo(Order)
 

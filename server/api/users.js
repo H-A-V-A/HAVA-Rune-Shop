@@ -19,6 +19,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:userId/cart', async (req, res, next) => {
   try {
     if (req.user && req.user.id === Number(req.params.userId)) {
+      // look into using middleware for this
       const cart = await Order.findOne({
         where: {
           userId: req.params.userId,
@@ -39,6 +40,7 @@ router.put('/:userId/cart/update/:id', async (req, res, next) => {
   try {
     if (req.user && req.user.id === Number(req.params.userId)) {
       const cart = await Order.findOne({
+        // unnecessary since you already have the orderId on the client side
         where: {
           userId: req.params.userId,
           status: 'open'
@@ -64,6 +66,7 @@ router.put('/:userId/cart/update/:id', async (req, res, next) => {
 router.post('/:userId/cart/add/:id', async (req, res, next) => {
   try {
     const cart = await Order.findOne({
+      // same as above & look into the findOrCreate
       where: {userId: req.params.userId, status: 'open'}
     })
 

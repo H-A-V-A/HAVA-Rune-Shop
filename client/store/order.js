@@ -11,7 +11,7 @@ const CLEAR_CART = 'CLEAR_CART'
  * INITIAL STATE
  */
 const initialState = {
-  all: [],
+  all: [], // rename to orderhistory if that's what it's for
   cart: {
     orderProducts: []
   }
@@ -28,6 +28,7 @@ const clearCart = () => ({type: CLEAR_CART})
  */
 export const getCartTHUNK = userId => {
   return async dispatch => {
+    // don't forget try/catch
     let {data} = await axios.get(`/api/users/${userId}/cart`)
     dispatch(getCart(data))
   }
@@ -74,7 +75,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         cart: {
-          ...state.cart,
+          ...state.cart, // NICEEEEEEEEEE
           orderProducts: state.cart.orderProducts.filter(product => {
             return product.productId !== action.id
           })

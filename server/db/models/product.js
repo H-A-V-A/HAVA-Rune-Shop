@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require('sequelize')
+const db = require('../db')
 
 const Product = db.define('product', {
   name: {
@@ -23,12 +23,13 @@ const Product = db.define('product', {
     }
   },
   price: {
+    // I want you to figure out the floating point number
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0
     }
   }
-});
+})
 
-module.exports = Product;
+module.exports = Product
