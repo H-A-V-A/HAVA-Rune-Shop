@@ -39,11 +39,21 @@ router.post('/:userId/cart/add/:id', async (req, res, next) => {
   try {
     const order = await Order.findOne({where: {userId: req.params.userId}})
 
-    await OrderProduct.create({
-      quantity: req.body.qty,
-      orderId: order.id,
-      productId: req.params.id
+    const orderProduct = await OrderProduct.findOne({
+      where: {orderId: order.id, productId: req.params.id}
     })
+
+    if (orderProduct) {
+      await orderProduct.update({
+        quantity: orderProduct.quantity + Number(req.body.qty)
+      })
+    } else {
+      await OrderProduct.create({
+        quantity: req.body.qty,
+        orderId: order.id,
+        productId: req.params.id
+      })
+    }
 
     res.status(201)
   } catch (error) {
