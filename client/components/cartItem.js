@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {deleteItemTHUNK} from '../store/order'
 
 class CartItem extends React.Component {
   render() {
@@ -16,10 +18,24 @@ class CartItem extends React.Component {
           Price: {product.price} <i className="fas fa-coins" />
         </strong>
         <br />
-        <button type="button">Remove Item</button>
+        <button
+          type="button"
+          onClick={() => this.props.deleteItem(this.props.orderId, product.id)}
+        >
+          Remove Item
+        </button>
       </div>
     )
   }
 }
 
-export default CartItem
+const mapStateToProps = state => ({
+  orderId: state.orders.cart.id
+})
+
+const mapDispatchToProps = dispatch => ({
+  deleteItem: (orderId, productId) =>
+    dispatch(deleteItemTHUNK(orderId, productId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem)

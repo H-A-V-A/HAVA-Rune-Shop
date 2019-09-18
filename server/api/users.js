@@ -38,7 +38,6 @@ router.get('/:userId/cart', async (req, res, next) => {
 router.post('/:userId/cart/add/:id', async (req, res, next) => {
   try {
     const order = await Order.findOne({where: {userId: req.params.userId}})
-    console.log('orderId: ', order.id)
 
     await OrderProduct.create({
       quantity: 1,
@@ -46,6 +45,20 @@ router.post('/:userId/cart/add/:id', async (req, res, next) => {
       productId: req.params.id
     })
     res.status(201)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/cart/delete', async (req, res, next) => {
+  try {
+    await OrderProduct.delete({
+      where: {
+        orderId: req.body.orderId,
+        productId: req.body.productId
+      }
+    })
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }
