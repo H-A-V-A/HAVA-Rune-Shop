@@ -5,6 +5,10 @@ import {deleteItemTHUNK} from '../store/order'
 class CartItem extends React.Component {
   render() {
     const product = this.props.product
+    let arr = []
+    for (let i = 0; i < 10; i++) {
+      arr.push(i + 1)
+    }
 
     return (
       <div className="listed-product">
@@ -12,10 +16,24 @@ class CartItem extends React.Component {
         <h4>Product: {product.name}</h4>
         <label htmlFor="quantity">Quantity:</label>
         <select name="quantity">
-          <option value={this.props.quantity}>{this.props.quantity}</option>
+          {arr.map(index => {
+            if (index === this.props.quantity) {
+              return (
+                <option value={index} key={index} selected>
+                  {index}
+                </option>
+              )
+            } else {
+              return (
+                <option value={index} key={index}>
+                  {index}
+                </option>
+              )
+            }
+          })}
         </select>
         <strong>
-          Price: {product.price} <i className="fas fa-coins" />
+          Unit Price: {product.price} <i className="fas fa-coins" />
         </strong>
         <br />
         <button
