@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getCartTHUNK} from '../store/order'
 import CartItem from './cartItem'
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -40,7 +41,9 @@ class Cart extends React.Component {
           Total: {this.props.cart ? `${this.sumCart()} ` : '0 '}
           <i className="fas fa-coins" />
         </h3>
-        <button type="button">CHECKOUT</button>
+        <Link to="/checkout">
+          <button type="button">CHECKOUT</button>
+        </Link>
       </div>
     )
   }
