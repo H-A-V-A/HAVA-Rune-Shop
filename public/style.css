@@ -90,7 +90,7 @@ form div {
 }
 
 .products-list {
-  background: url(/images/scroll-paper.png) center/80% 100% no-repeat;
+  background: url(/images/scroll-paper.png) center/100% 100% no-repeat;
 }
 
 .products-list button {
@@ -131,6 +131,8 @@ form div {
 
 .wrap {
   flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .width-70 {
