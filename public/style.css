@@ -1,12 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Merienda|Rancho&display=swap');
+
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
+}
+
 body {
-  color: white;
-  font-family: sans-serif;
+  color: #3c3c3c;
+  font-family: 'Merienda', cursive;
   background-image: url(/images/wood-texture-by-elena-skripka.jpg);
-  background-size: 250px;
+  background-size: 50vw;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  text-align: center;
+}
+
+button {
+  font-family: 'Merienda', cursive;
+  border: none;
+  cursor: pointer;
 }
 
 label {
@@ -14,10 +38,32 @@ label {
 }
 
 nav {
-  background-color: wheat;
+  background-color: #6d0019;
+  width: 85%;
+  background: linear-gradient(#a90329, #6d0019);
+  border-top: 3px solid #7b0101;
+  border-bottom: 3px solid #480303;
+  box-shadow: 0 5px 0 0 #6d0019, 0 -5px 0 0 #a90329,
+    0 5px 10px rgba(0, 0, 0, 0.75);
+}
+
+nav::before {
+  content: '';
+  display: block;
+  width: calc(85% - 200px);
+  height: 200px;
+  position: absolute;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-top: 50px solid #5f061a;
+  margin-top: 77px;
+  z-index: -1;
 }
 
 nav a {
+  color: #ffffff;
+  font-size: 20px;
   display: inline-block;
   margin: 1em;
 }
@@ -27,6 +73,56 @@ form div {
   display: inline-block;
 }
 
+.content-body {
+  background: url(/images/scroll-paper.png) center/80% 100% no-repeat;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-left {
+  float: left;
+}
+
+.nav-right {
+  float: right;
+}
+
+.products-list {
+  background: url(/images/scroll-paper.png) center/80% 100% no-repeat;
+}
+
+.products-list button {
+  font-size: 30px;
+  color: #3c3c3c;
+  position: absolute;
+  bottom: 5%;
+  right: 7%;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.products-list button:hover {
+  transform: scale(1.1);
+}
+
+.products-list button:active {
+  color: white;
+  transform: scale(0.9);
+}
+
+.products-list h2 {
+  margin: 0;
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .flex {
   display: flex;
   justify-content: center;
@@ -34,25 +130,67 @@ form div {
   flex-wrap: wrap;
 }
 
+.item-detail {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10%;
+  padding: 0 25px;
+  width: 25vw;
+  box-shadow: inset 0 0 50px 5px rgba(88, 33, 0, 0.3),
+    0 0 10px 0px rgba(88, 33, 0, 0.3);
+}
+
 .listed-product {
   display: flex;
   justify-content: center;
   align-content: center;
   flex-direction: column;
-  background-color: wheat;
+  background-color: #ffce8b00;
   margin: 20px;
   padding: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
+  width: 20vw;
+  box-shadow: inset 0 0 50px 5px rgba(88, 33, 0, 0.3),
+    0 0 10px 0px rgba(88, 33, 0, 0.3);
+  border-radius: 10%;
+  transform: scale(0.9);
+}
+
+.listed-product a {
+  color: #3c3c3c;
+}
+
+.listed-product img {
+  width: 20vw;
+  height: auto;
+  filter: drop-shadow(0 0 25px #fff);
   transition: transform 0.3s ease;
 }
 
-.listed-product:hover {
-  transform: scale(1.02);
+.listed-product img:hover {
+  animation: wiggle 0.3s;
+  transform: scale(1.1);
 }
 
 #logo {
   width: 50vw;
   height: auto;
+  margin: -20px 0 -35px 0;
+  position: relative;
+  filter: drop-shadow(2px 5px 5px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg) scale(1.025);
+  }
+  50% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1.1);
+  }
 }

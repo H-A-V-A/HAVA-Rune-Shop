@@ -19,13 +19,15 @@ class ProductList extends Component {
   }
   render() {
     return (
-      <div className="flex">
+      <div className="flex products-list">
         {this.props.products ? (
           this.props.products.map(product => {
             return (
               <div key={product.id} className="listed-product">
+
                 <Link to={`/products/${product.id}`}>
-                  <h3>{product.name}</h3>
+                  <h2>{product.name}</h2>
+
                   <img src={product.imageUrl} />
                 </Link>
                 <button
@@ -34,7 +36,7 @@ class ProductList extends Component {
                     this.handleAddToCart(product.id)
                   }}
                 >
-                  AddToCart
+                  <i className="fas fa-cart-plus" />
                 </button>
               </div>
             )

@@ -9,7 +9,7 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <div>
+    <div className="content-body">
       <h3>Welcome to RuneShop, {email}</h3>
     </div>
   )
