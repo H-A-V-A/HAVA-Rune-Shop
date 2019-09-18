@@ -14,7 +14,6 @@ class Cart extends React.Component {
   }
 
   sumCart() {
-    console.log(this.props)
     return this.props.cart.orderProducts.reduce((accum, orderProduct) => {
       return accum + orderProduct.quantity * orderProduct.product.price
     }, 0)
