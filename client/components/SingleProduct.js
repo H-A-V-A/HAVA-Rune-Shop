@@ -56,7 +56,7 @@ class SingleProduct extends Component {
             <p>
               Price: {price} <i className="fas fa-coins" />
             </p>
-            <p>Available Stock: {stock}</p>
+            <p>Available Stock: {stock !== 0 ? stock : 'Out of Stock!'}</p>
             <form method="POST" onSubmit={this.handleSubmit}>
               <select name="quantity" onChange={this.handleSelect}>
                 {arr.map(index => {
