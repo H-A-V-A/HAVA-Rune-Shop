@@ -10,11 +10,11 @@ class ProductList extends Component {
     this.handleAddToCart = this.handleAddToCart.bind(this)
   }
 
-  handleAddToCart(productId, productPrice) {
+  handleAddToCart(product) {
     if (this.props.user.id) {
-      this.props.addToCart(this.props.user.id, productId, 1)
+      this.props.addToCart(this.props.user.id, product.id, 1)
     } else {
-      this.props.addToGuestCart(productId, productPrice, 1)
+      this.props.addToGuestCart(product, 1)
     }
   }
 
@@ -40,7 +40,7 @@ class ProductList extends Component {
                 <button
                   type="button"
                   onClick={() => {
-                    this.handleAddToCart(product.id, product.price)
+                    this.handleAddToCart(product)
                   }}
                 >
                   <i className="fas fa-cart-plus" />
@@ -65,8 +65,7 @@ const mapDispatchToProps = dispatch => ({
   getAllProducts: () => dispatch(getProductsTHUNK()),
   addToCart: (userId, productId, qty) =>
     dispatch(addToCartTHUNK(userId, productId, qty)),
-  addToGuestCart: (productId, price, qty) =>
-    dispatch(addToGuestCartTHUNK(productId, price, qty))
+  addToGuestCart: (product, qty) => dispatch(addToGuestCartTHUNK(product, qty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

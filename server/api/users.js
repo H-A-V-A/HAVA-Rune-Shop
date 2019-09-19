@@ -16,22 +16,28 @@ module.exports = router
 //   }
 // })
 
-router.post('/guest/cart/add/:id', (req, res, next) => {
+router.post('/guest/cart/add', (req, res, next) => {
   try {
     if (!req.session.cart) {
       req.session.cart = [
         {
-          productId: req.params.id,
-          quantity: Number(req.body.qty),
-          price: req.body.price
+          product: req.body.product,
+          quantity: Number(req.body.qty)
         }
       ]
     } else {
-      req.session.cart.push({
-        productId: req.params.id,
-        quantity: Number(req.body.qty),
-        price: req.body.price
-      })
+      const matchingIndex = req.session.cart.findIndex(
+        orderProduct => orderProduct.product.id === req.body.product.id
+      )
+
+      if (matchingIndex > -1) {
+        req.session.cart[matchingIndex].quantity += req.body.qty
+      } else {
+        req.session.cart.push({
+          product: req.body.product,
+          quantity: Number(req.body.qty)
+        })
+      }
     }
     res.json(req.session.cart)
   } catch (error) {

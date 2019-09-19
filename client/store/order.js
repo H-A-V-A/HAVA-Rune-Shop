@@ -63,13 +63,13 @@ export const placeOrderTHUNK = orderId => {
   }
 }
 
-export const addToGuestCartTHUNK = (productId, price, qty) => {
+export const addToGuestCartTHUNK = (product, qty) => {
   return async dispatch => {
-    const {data} = await axios.post(`/api/users/guest/cart/add/${productId}`, {
-      price,
+    const {data} = await axios.post(`/api/users/guest/cart/add`, {
+      product,
       qty
     })
-    dispatch(getCart(data))
+    dispatch(getCart({orderProducts: data}))
   }
 }
 

@@ -11,7 +11,9 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCart(this.props.user.id)
+    if (this.props.user.id) {
+      this.props.getCart(this.props.user.id)
+    }
   }
 
   sumCart() {
@@ -28,7 +30,7 @@ class Cart extends React.Component {
           {this.props.cart ? (
             this.props.cart.orderProducts.map(orderProduct => (
               <CartItem
-                key={orderProduct.id}
+                key={orderProduct.product.id}
                 product={orderProduct.product}
                 quantity={orderProduct.quantity}
               />
