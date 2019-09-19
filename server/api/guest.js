@@ -56,13 +56,9 @@ router.put('/cart', (req, res, next) => {
 
 router.delete('/cart/:productId', (req, res, next) => {
   try {
-    req.session.cart = req.session.cart.filter(orderProduct => {
-      if (orderProduct.product.id === req.params.id) {
-        return false
-      } else {
-        return true
-      }
-    })
+    req.session.cart = req.session.cart.filter(
+      orderProduct => orderProduct.product.id !== Number(req.params.productId)
+    )
     res.sendStatus(204)
   } catch (error) {
     next(error)
