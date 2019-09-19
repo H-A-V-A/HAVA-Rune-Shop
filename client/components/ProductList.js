@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProductsTHUNK} from '../store/product'
-import {addToCartTHUNK} from '../store/order'
+import {addToCartTHUNK, addToGuestCartTHUNK} from '../store/order'
 import {Link} from 'react-router-dom'
 
 class ProductList extends Component {
@@ -10,8 +10,12 @@ class ProductList extends Component {
     this.handleAddToCart = this.handleAddToCart.bind(this)
   }
 
-  handleAddToCart(productId) {
-    this.props.addToCart(this.props.user.id, productId, 1)
+  handleAddToCart(productId, productPrice) {
+    if (this.props.user.id) {
+      this.props.addToCart(this.props.user.id, productId, 1)
+    } else {
+      this.props.addToGuestCart(productId, productPrice, 1)
+    }
   }
 
   componentDidMount() {
@@ -36,7 +40,7 @@ class ProductList extends Component {
                 <button
                   type="button"
                   onClick={() => {
-                    this.handleAddToCart(product.id)
+                    this.handleAddToCart(product.id, product.price)
                   }}
                 >
                   <i className="fas fa-cart-plus" />
@@ -60,7 +64,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getAllProducts: () => dispatch(getProductsTHUNK()),
   addToCart: (userId, productId, qty) =>
-    dispatch(addToCartTHUNK(userId, productId, qty))
+    dispatch(addToCartTHUNK(userId, productId, qty)),
+  addToGuestCart: (productId, price, qty) =>
+    dispatch(addToGuestCartTHUNK(productId, price, qty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList)
