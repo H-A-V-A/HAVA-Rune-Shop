@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {getCartTHUNK} from './order'
 
 /**
  * ACTION TYPES
@@ -40,6 +41,9 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
+    if (method === 'login') {
+      await dispatch(getCartTHUNK(res.data.id))
+    }
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)

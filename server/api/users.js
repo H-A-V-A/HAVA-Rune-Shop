@@ -2,17 +2,58 @@ const router = require('express').Router()
 const {User, Order, OrderProduct, Product} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const users = await User.findAll({
+//       // explicitly select only the id and email fields - even though
+//       // users' passwords are encrypted, it won't help if we just
+//       // send everything to anyone who asks!
+//       attributes: ['id', 'email']
+//     })
+//     res.json(users)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+router.post('/guest/cart/add', (req, res, next) => {
   try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
-    })
-    res.json(users)
-  } catch (err) {
-    next(err)
+    if (!req.session.cart) {
+      req.session.cart = [
+        {
+          product: req.body.product,
+          quantity: Number(req.body.qty)
+        }
+      ]
+    } else {
+      const matchingItem = req.session.cart.find(
+        orderProduct => orderProduct.product.id === req.body.product.id
+      )
+
+      if (matchingItem) {
+        matchingItem.quantity += req.body.qty
+      } else {
+        req.session.cart.push({
+          product: req.body.product,
+          quantity: Number(req.body.qty)
+        })
+      }
+    }
+    res.json(req.session.cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/guest/cart', (req, res, next) => {
+  try {
+    if (req.session.cart) {
+      res.json(req.session.cart)
+    } else {
+      res.sendStatus(404)
+    }
+  } catch (error) {
+    next(error)
   }
 })
 
