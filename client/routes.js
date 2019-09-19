@@ -13,6 +13,7 @@ import {
 } from './components'
 import {me} from './store'
 import Checkout from './components/checkout'
+import {getCartTHUNK} from './store/order'
 
 /**
  * COMPONENT
@@ -66,6 +67,9 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+    },
+    getCart(userId) {
+      dispatch(getCartTHUNK(userId))
     }
   }
 }

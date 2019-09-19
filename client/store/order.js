@@ -28,8 +28,13 @@ const clearCart = () => ({type: CLEAR_CART})
  */
 export const getCartTHUNK = userId => {
   return async dispatch => {
-    let {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(getCart(data))
+    if (userId) {
+      let {data} = await axios.get(`/api/users/${userId}/cart`)
+      dispatch(getCart(data))
+    } else {
+      let {data} = await axios.get('/api/users/guest/cart')
+      dispatch(getCart({orderProducts: data}))
+    }
   }
 }
 
