@@ -9,8 +9,9 @@ class Checkout extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user)
-    this.props.getCart(this.props.user.id)
+    if (this.props.user.id) {
+      this.props.getCart(this.props.user.id)
+    }
   }
 
   sumCart() {
