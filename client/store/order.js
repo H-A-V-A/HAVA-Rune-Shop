@@ -6,7 +6,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
-
+const REMOVE_USER = 'REMOVE_USER'
 /**
  * INITIAL STATE
  */
@@ -96,6 +96,7 @@ export default function(state = initialState, action) {
         }
       }
     case CLEAR_CART:
+    case REMOVE_USER: //Fall through
       return {...state, cart: initialState.cart}
     default:
       return state
