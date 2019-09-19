@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Order, OrderProduct, Product} = require('../db/models')
+const auth = require('./auth')
 module.exports = router
 
 // router.get('/', async (req, res, next) => {
@@ -84,28 +85,27 @@ router.delete('/guest/cart/:productId', (req, res, next) => {
   }
 })
 
-router.get('/:userId/cart', async (req, res, next) => {
+router.get('/:userId/cart', auth.isAuthorized, async (req, res, next) => {
+
   try {
-    if (req.user && req.user.id === Number(req.params.userId)) {
-      const cart = await Order.findOne({
-        where: {
-          userId: req.params.userId,
-          status: 'open'
-        },
-        include: {model: OrderProduct, include: [Product]}
-      })
-      res.json(cart)
-    } else {
-      res.sendStatus(401)
-    }
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        status: 'open'
+      },
+      include: {model: OrderProduct, include: [Product]}
+    })
+    res.json(cart)
   } catch (error) {
     next(error)
   }
 })
 
-router.put('/:userId/cart/update/:id', async (req, res, next) => {
-  try {
-    if (req.user && req.user.id === Number(req.params.userId)) {
+router.put(
+  '/:userId/cart/update/:id',
+  auth.isAuthorized,
+  async (req, res, next) => {
+    try {
       const cart = await Order.findOne({
         where: {
           userId: req.params.userId,
@@ -121,38 +121,40 @@ router.put('/:userId/cart/update/:id', async (req, res, next) => {
       orderProduct.update({
         quantity: Number(req.body.qty)
       })
-    } else {
-      res.sendStatus(401)
+    } catch (error) {
+      next(error)
     }
-  } catch (error) {
-    next(error)
   }
-})
+)
 
-router.post('/:userId/cart/add/:id', async (req, res, next) => {
-  try {
-    const cart = await Order.findOne({
-      where: {userId: req.params.userId, status: 'open'}
-    })
-
-    const orderProduct = await OrderProduct.findOne({
-      where: {orderId: cart.id, productId: req.params.id}
-    })
-
-    if (orderProduct) {
-      await orderProduct.update({
-        quantity: orderProduct.quantity + Number(req.body.qty)
+router.post(
+  '/:userId/cart/add/:id',
+  auth.isAuthorized,
+  async (req, res, next) => {
+    try {
+      const cart = await Order.findOne({
+        where: {userId: req.params.userId, status: 'open'}
       })
-    } else {
-      await OrderProduct.create({
-        quantity: req.body.qty,
-        orderId: cart.id,
-        productId: req.params.id
+
+      const orderProduct = await OrderProduct.findOne({
+        where: {orderId: cart.id, productId: req.params.id}
       })
+
+      if (orderProduct) {
+        await orderProduct.update({
+          quantity: orderProduct.quantity + Number(req.body.qty)
+        })
+      } else {
+        await OrderProduct.create({
+          quantity: req.body.qty,
+          orderId: cart.id,
+          productId: req.params.id
+        })
+      }
+
+      res.status(201)
+    } catch (error) {
+      next(error)
     }
-
-    res.status(201)
-  } catch (error) {
-    next(error)
   }
-})
+)
