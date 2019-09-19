@@ -55,7 +55,9 @@ class Checkout extends React.Component {
           </p>
           <button
             type="button"
-            onClick={() => this.props.placeOrder(this.props.cart.id)}
+            onClick={() =>
+              this.props.placeOrder(this.props.user.id, this.props.cart.id)
+            }
           >
             Place Order
           </button>
@@ -72,7 +74,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCart: userId => dispatch(getCartTHUNK(userId)),
-  placeOrder: orderId => dispatch(placeOrderTHUNK(orderId))
+  placeOrder: (userId, orderId) => dispatch(placeOrderTHUNK(userId, orderId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

@@ -32,7 +32,7 @@ export const getCartTHUNK = userId => {
       let {data} = await axios.get(`/api/users/${userId}/cart`)
       dispatch(getCart(data))
     } else {
-      let {data} = await axios.get('/api/users/guest/cart')
+      let {data} = await axios.get('/api/guest/cart')
       dispatch(getCart({orderProducts: data}))
     }
   }
@@ -54,17 +54,17 @@ export const updateCartTHUNK = (userId, productId, qty) => {
       dispatch(getCart(data))
     } else {
       //make guest update cart route
-      await axios.put('/api/users/guest/cart', {productId, qty})
-      let {data} = await axios.get('/api/users/guest/cart')
+      await axios.put('/api/guest/cart', {productId, qty})
+      let {data} = await axios.get('/api/guest/cart')
       dispatch(getCart({orderProducts: data}))
     }
   }
 }
 
-export const deleteItemTHUNK = (orderId, productId) => {
+export const deleteItemTHUNK = (userId, orderId, productId) => {
   return async dispatch => {
     if (orderId) {
-      await axios.delete(`/api/orders/${orderId}/${productId}`)
+      await axios.delete(`/api/users/${userId}/cart/${orderId}/${productId}`)
       dispatch(deleteItem(productId))
     } else {
       //delete item from guest
@@ -72,16 +72,16 @@ export const deleteItemTHUNK = (orderId, productId) => {
   }
 }
 
-export const placeOrderTHUNK = orderId => {
+export const placeOrderTHUNK = (userId, orderId) => {
   return async dispatch => {
-    await axios.put(`/api/orders/${orderId}`)
+    await axios.put(`/api/users/${userId}/checkout/${orderId}`)
     dispatch(clearCart())
   }
 }
 
 export const addToGuestCartTHUNK = (product, qty) => {
   return async dispatch => {
-    const {data} = await axios.post(`/api/users/guest/cart/add`, {
+    const {data} = await axios.post(`/api/guest/cart/add`, {
       product,
       qty
     })
