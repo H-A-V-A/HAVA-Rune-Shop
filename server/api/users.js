@@ -26,12 +26,12 @@ router.post('/guest/cart/add', (req, res, next) => {
         }
       ]
     } else {
-      const matchingIndex = req.session.cart.findIndex(
+      const matchingItem = req.session.cart.find(
         orderProduct => orderProduct.product.id === req.body.product.id
       )
 
-      if (matchingIndex > -1) {
-        req.session.cart[matchingIndex].quantity += req.body.qty
+      if (matchingItem) {
+        matchingItem.quantity += req.body.qty
       } else {
         req.session.cart.push({
           product: req.body.product,
