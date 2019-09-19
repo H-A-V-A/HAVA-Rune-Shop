@@ -48,9 +48,16 @@ export const addToCartTHUNK = (userId, productId, qty) => {
 
 export const updateCartTHUNK = (userId, productId, qty) => {
   return async dispatch => {
-    await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
-    let {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(getCart(data))
+    if (userId) {
+      await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
+      let {data} = await axios.get(`/api/users/${userId}/cart`)
+      dispatch(getCart(data))
+    } else {
+      //make guest update cart route
+      await axios.put('/api/users/guest/cart', {productId, qty})
+      let {data} = await axios.get('/api/users/guest/cart')
+      dispatch(getCart({orderProducts: data}))
+    }
   }
 }
 

@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getSingleProductTHUNK} from '../store/singleProduct'
-import {addToCartTHUNK} from '../store/order'
-import Axios from 'axios'
+import {addToCartTHUNK, addToGuestCartTHUNK} from '../store/order'
 
 class SingleProduct extends Component {
   constructor() {
@@ -19,11 +18,16 @@ class SingleProduct extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    this.props.addToCart(
-      this.props.user.id,
-      this.props.match.params.id,
-      this.state.quantity
-    )
+
+    if (this.props.user.id) {
+      this.props.addToCart(
+        this.props.user.id,
+        this.props.match.params.id,
+        this.state.quantity
+      )
+    } else {
+      this.props.addToGuestCart(this.props.selectedProduct, this.state.quantity)
+    }
   }
 
   handleSelect(event) {
@@ -86,7 +90,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getSingleProduct: id => dispatch(getSingleProductTHUNK(id)),
   addToCart: (userId, productId, qty) =>
-    dispatch(addToCartTHUNK(userId, productId, qty))
+    dispatch(addToCartTHUNK(userId, productId, qty)),
+  addToGuestCart: (product, qty) => dispatch(addToGuestCartTHUNK(product, qty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

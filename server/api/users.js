@@ -57,6 +57,18 @@ router.get('/guest/cart', (req, res, next) => {
   }
 })
 
+router.put('/guest/cart', (req, res, next) => {
+  try {
+    const matchingItem = req.session.cart.find(
+      orderProduct => orderProduct.product.id === req.body.productId
+    )
+    matchingItem.quantity = Number(req.body.qty)
+    res.json(req.session.cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:userId/cart', async (req, res, next) => {
   try {
     if (req.user && req.user.id === Number(req.params.userId)) {
