@@ -58,7 +58,35 @@ router.get('/guest/cart', (req, res, next) => {
   }
 })
 
+router.put('/guest/cart', (req, res, next) => {
+  try {
+    const matchingItem = req.session.cart.find(
+      orderProduct => orderProduct.product.id === req.body.productId
+    )
+    matchingItem.quantity = Number(req.body.qty)
+    res.json(req.session.cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/guest/cart/:productId', (req, res, next) => {
+  try {
+    req.session.cart = req.session.cart.filter(orderProduct => {
+      if (orderProduct.product.id === req.params.id) {
+        return false
+      } else {
+        return true
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:userId/cart', auth.isAuthorized, async (req, res, next) => {
+
   try {
     const cart = await Order.findOne({
       where: {

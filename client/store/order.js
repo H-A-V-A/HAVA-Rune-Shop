@@ -6,7 +6,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
-
+const REMOVE_USER = 'REMOVE_USER'
 /**
  * INITIAL STATE
  */
@@ -28,8 +28,13 @@ const clearCart = () => ({type: CLEAR_CART})
  */
 export const getCartTHUNK = userId => {
   return async dispatch => {
-    let {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(getCart(data))
+    if (userId) {
+      let {data} = await axios.get(`/api/users/${userId}/cart`)
+      dispatch(getCart(data))
+    } else {
+      let {data} = await axios.get('/api/users/guest/cart')
+      dispatch(getCart({orderProducts: data}))
+    }
   }
 }
 
@@ -43,16 +48,27 @@ export const addToCartTHUNK = (userId, productId, qty) => {
 
 export const updateCartTHUNK = (userId, productId, qty) => {
   return async dispatch => {
-    await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
-    let {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(getCart(data))
+    if (userId) {
+      await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
+      let {data} = await axios.get(`/api/users/${userId}/cart`)
+      dispatch(getCart(data))
+    } else {
+      //make guest update cart route
+      await axios.put('/api/users/guest/cart', {productId, qty})
+      let {data} = await axios.get('/api/users/guest/cart')
+      dispatch(getCart({orderProducts: data}))
+    }
   }
 }
 
 export const deleteItemTHUNK = (orderId, productId) => {
   return async dispatch => {
-    await axios.delete(`/api/orders/${orderId}/${productId}`)
-    dispatch(deleteItem(productId))
+    if (orderId) {
+      await axios.delete(`/api/orders/${orderId}/${productId}`)
+      dispatch(deleteItem(productId))
+    } else {
+      //delete item from guest
+    }
   }
 }
 
@@ -91,6 +107,7 @@ export default function(state = initialState, action) {
         }
       }
     case CLEAR_CART:
+    case REMOVE_USER: //Fall through
       return {...state, cart: initialState.cart}
     default:
       return state
