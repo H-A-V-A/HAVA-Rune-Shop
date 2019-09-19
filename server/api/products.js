@@ -24,3 +24,17 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+// router.put('/:id', async (req, res, next) => {
+//   try {
+//     console.log('BOOOOOODDDDDYDDDDD', req.body)
+//     const singleProduct = await Product.findOne({
+//       where: {
+//         id: req.params.id
+//       }
+//     })
+//     await singleProduct.update({ stock: singleProduct.stock - Number(req.body.quantity) })
+//   } catch (error) {
+//     next(error)
+//   }
+// })
