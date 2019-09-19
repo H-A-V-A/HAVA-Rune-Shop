@@ -63,8 +63,12 @@ export const updateCartTHUNK = (userId, productId, qty) => {
 
 export const deleteItemTHUNK = (orderId, productId) => {
   return async dispatch => {
-    await axios.delete(`/api/orders/${orderId}/${productId}`)
-    dispatch(deleteItem(productId))
+    if (orderId) {
+      await axios.delete(`/api/orders/${orderId}/${productId}`)
+      dispatch(deleteItem(productId))
+    } else {
+      //delete item from guest
+    }
   }
 }
 

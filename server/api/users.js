@@ -69,6 +69,21 @@ router.put('/guest/cart', (req, res, next) => {
   }
 })
 
+router.delete('/guest/cart/:productId', (req, res, next) => {
+  try {
+    req.session.cart = req.session.cart.filter(orderProduct => {
+      if (orderProduct.product.id === req.params.id) {
+        return false
+      } else {
+        return true
+      }
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:userId/cart', async (req, res, next) => {
   try {
     if (req.user && req.user.id === Number(req.params.userId)) {
