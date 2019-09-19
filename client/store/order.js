@@ -67,7 +67,9 @@ export const deleteItemTHUNK = (userId, orderId, productId) => {
       await axios.delete(`/api/users/${userId}/cart/${orderId}/${productId}`)
       dispatch(deleteItem(productId))
     } else {
-      //delete item from guest
+      await axios.delete(`/api/guest/cart/${productId}`)
+      let {data} = await axios.get('/api/guest/cart')
+      dispatch(getCart({orderProducts: data}))
     }
   }
 }
