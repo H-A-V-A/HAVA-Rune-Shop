@@ -26,7 +26,7 @@ class Cart extends React.Component {
     return (
       <div className="content-body">
         <h2>Cart:</h2>
-        <div className="flex wrap">
+        <div className="flex column">
           {this.props.cart ? (
             this.props.cart.orderProducts.map(orderProduct => (
               <CartItem
@@ -44,7 +44,9 @@ class Cart extends React.Component {
           <i className="fas fa-coins" />
         </h3>
         <Link to="/checkout">
-          <button type="button">CHECKOUT</button>
+          <button type="button">
+            CHECKOUT <i className="fas fa-cash-register" />
+          </button>
         </Link>
       </div>
     )
