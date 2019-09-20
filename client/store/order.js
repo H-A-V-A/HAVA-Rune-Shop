@@ -11,7 +11,7 @@ const REMOVE_USER = 'REMOVE_USER'
  * INITIAL STATE
  */
 const initialState = {
-  all: [],
+  history: [],
   cart: {
     orderProducts: []
   }
@@ -28,66 +28,90 @@ const clearCart = () => ({type: CLEAR_CART})
  */
 export const getCartTHUNK = userId => {
   return async dispatch => {
-    if (userId) {
-      let {data} = await axios.get(`/api/users/${userId}/cart`)
-      dispatch(getCart(data))
-    } else {
-      let {data} = await axios.get('/api/guest/cart')
-      dispatch(getCart({orderProducts: data}))
+    try {
+      if (userId) {
+        let {data} = await axios.get(`/api/users/${userId}/cart`)
+        dispatch(getCart(data))
+      } else {
+        let {data} = await axios.get('/api/guest/cart')
+        dispatch(getCart({orderProducts: data}))
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 }
 
 export const addToCartTHUNK = (userId, productId, qty) => {
   return async dispatch => {
-    await axios.post(`/api/users/${userId}/cart/add/${productId}`, {qty})
-    let {data} = await axios.get(`/api/users/${userId}/cart`)
-    dispatch(getCart(data))
+    try {
+      await axios.post(`/api/users/${userId}/cart/add/${productId}`, {qty})
+      let {data} = await axios.get(`/api/users/${userId}/cart`)
+      dispatch(getCart(data))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export const updateCartTHUNK = (userId, productId, qty) => {
   return async dispatch => {
-    if (userId) {
-      await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
-      let {data} = await axios.get(`/api/users/${userId}/cart`)
-      dispatch(getCart(data))
-    } else {
-      //make guest update cart route
-      await axios.put('/api/guest/cart', {productId, qty})
-      let {data} = await axios.get('/api/guest/cart')
-      dispatch(getCart({orderProducts: data}))
+    try {
+      if (userId) {
+        await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
+        let {data} = await axios.get(`/api/users/${userId}/cart`)
+        dispatch(getCart(data))
+      } else {
+        //make guest update cart route
+        await axios.put('/api/guest/cart', {productId, qty})
+        let {data} = await axios.get('/api/guest/cart')
+        dispatch(getCart({orderProducts: data}))
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 }
 
 export const deleteItemTHUNK = (userId, orderId, productId) => {
   return async dispatch => {
-    if (orderId) {
-      await axios.delete(`/api/users/${userId}/cart/${orderId}/${productId}`)
-      dispatch(deleteItem(productId))
-    } else {
-      await axios.delete(`/api/guest/cart/${productId}`)
-      let {data} = await axios.get('/api/guest/cart')
-      dispatch(getCart({orderProducts: data}))
+    try {
+      if (orderId) {
+        await axios.delete(`/api/users/${userId}/cart/${orderId}/${productId}`)
+        dispatch(deleteItem(productId))
+      } else {
+        await axios.delete(`/api/guest/cart/${productId}`)
+        let {data} = await axios.get('/api/guest/cart')
+        dispatch(getCart({orderProducts: data}))
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 }
 
 export const placeOrderTHUNK = (userId, orderId) => {
   return async dispatch => {
-    await axios.put(`/api/users/${userId}/checkout/${orderId}`)
-    dispatch(clearCart())
+    try {
+      await axios.put(`/api/users/${userId}/checkout/${orderId}`)
+      dispatch(clearCart())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export const addToGuestCartTHUNK = (product, qty) => {
   return async dispatch => {
-    const {data} = await axios.post(`/api/guest/cart/add`, {
-      product,
-      qty
-    })
-    dispatch(getCart({orderProducts: data}))
+    try {
+      const {data} = await axios.post(`/api/guest/cart/add`, {
+        product,
+        qty
+      })
+      dispatch(getCart({orderProducts: data}))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
