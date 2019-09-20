@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {deleteItemTHUNK, updateCartTHUNK} from '../store/order'
+import {Link} from 'react-router-dom'
 
 class CartItem extends React.Component {
   constructor() {
@@ -32,31 +33,34 @@ class CartItem extends React.Component {
     }
 
     return (
-      <div className="listed-product">
+      <div className="cart-item">
         <img src={product.imageUrl} />
-        <h4>Product: {product.name}</h4>
-        <label htmlFor="quantity">Quantity:</label>
-        <select name="quantity" onChange={this.handleSelect}>
-          {arr.map(index => {
-            if (index === this.props.quantity) {
-              return (
-                <option value={index} key={index} selected>
-                  {index}
-                </option>
-              )
-            } else {
-              return (
-                <option value={index} key={index}>
-                  {index}
-                </option>
-              )
-            }
-          })}
-        </select>
-        <strong>
-          Unit Price: {product.price} <i className="fas fa-coins" />
-        </strong>
-        <br />
+        <div className="cart-item-text">
+          <Link to={`/products/${product.id}`}>
+            <h3>{product.name}</h3>
+          </Link>
+          <p>
+            Unit Price: {product.price} <i className="fas fa-coins" />
+          </p>
+          <p className="quantity-label">Quantity:</p>
+          <select name="quantity" onChange={this.handleSelect}>
+            {arr.map(index => {
+              if (index === this.props.quantity) {
+                return (
+                  <option value={index} key={index} selected>
+                    {index}
+                  </option>
+                )
+              } else {
+                return (
+                  <option value={index} key={index}>
+                    {index}
+                  </option>
+                )
+              }
+            })}
+          </select>
+        </div>
         <button
           type="button"
           onClick={() =>
@@ -67,7 +71,7 @@ class CartItem extends React.Component {
             )
           }
         >
-          Remove Item
+          <i className="fas fa-times" />
         </button>
       </div>
     )

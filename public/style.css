@@ -25,6 +25,7 @@ h3,
 h4,
 h5 {
   text-align: center;
+  text-shadow: 0 1px 1px #aa6002;
 }
 
 button {
@@ -80,11 +81,12 @@ form div {
 
 .content-body {
   background: url(/images/scroll-paper.png) center/80% 100% no-repeat;
-  height: 100%;
+  min-height: 100%;
   margin-bottom: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 10%;
 }
 
 .nav-left {
@@ -97,6 +99,9 @@ form div {
 
 .products-list {
   background: url(/images/scroll-paper.png) center/100% 100% no-repeat;
+  min-height: 100%;
+  width: 80%;
+  margin: 0 auto 5% auto;
   padding-bottom: 10%;
 }
 
@@ -119,6 +124,48 @@ form div {
 .products-list h2 {
   font-size: 1.2vw;
   margin: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-around;
+  box-shadow: inset 0 0 50px 5px rgba(88, 33, 0, 0.2),
+    0 0 10px 0px rgba(88, 33, 0, 0.2);
+  border-radius: 20px;
+  margin-bottom: 5%;
+}
+
+.cart-item a {
+  color: #3c3c3c;
+}
+
+.cart-item img {
+  filter: drop-shadow(0 0 25px #fff);
+  width: 20%;
+  height: auto;
+}
+
+.cart-item h3 {
+  text-align: left;
+}
+
+.cart-item button {
+  font-size: 2vw;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.cart-item button:hover {
+  transform: scale(1.1);
+}
+
+.cart-item-text {
+  width: 40%;
+}
+
+.cart-item .quantity-label {
+  float: left;
+  margin: 0 5px 0 0;
 }
 
 #header {
@@ -154,6 +201,10 @@ form div {
   align-items: center;
 }
 
+.column {
+  flex-direction: column;
+}
+
 .flex {
   display: flex;
   justify-content: center;
@@ -162,8 +213,6 @@ form div {
 
 .wrap {
   flex-wrap: wrap;
-  width: 80%;
-  margin: 0 auto 5% auto;
 }
 
 .width-70 {
@@ -219,13 +268,6 @@ form div {
 .listed-product img:hover {
   animation: wiggle 0.3s ease-out;
   transform: scale(1.1);
-}
-
-.listed-product img:active {
-  transform: scale(0.2);
-  position: absolute;
-  top: 53%;
-  left: 43%;
 }
 
 #logo {
