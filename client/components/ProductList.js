@@ -30,21 +30,23 @@ class ProductList extends Component {
               <div key={product.id} className="listed-product">
                 <Link to={`/products/${product.id}`}>
                   <h2>{product.name}</h2>
-
-                  <img src={product.imageUrl} />
+                  <img src={product.imageUrl} className="lp-img" />
                 </Link>
-                <div>{product.stock}×</div>
-                <div>
-                  <i className="fas fa-coins" /> {product.price}
+                <div className="stock-label">{product.stock}×</div>
+                <div className="bottom-labels">
+                  <div className="price-label">
+                    <div className="coin" />
+                    {product.price}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      this.handleAddToCart(product)
+                    }}
+                  >
+                    <i className="fas fa-cart-plus" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    this.handleAddToCart(product)
-                  }}
-                >
-                  <i className="fas fa-cart-plus" />
-                </button>
               </div>
             )
           })

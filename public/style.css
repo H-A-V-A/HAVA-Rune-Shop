@@ -66,6 +66,11 @@ nav a {
   font-size: 20px;
   display: inline-block;
   margin: 1em;
+  transition: text-shadow 0.4s ease;
+}
+
+nav a:hover {
+  text-shadow: 0 0 5px #ffffff;
 }
 
 form div {
@@ -76,6 +81,7 @@ form div {
 .content-body {
   background: url(/images/scroll-paper.png) center/80% 100% no-repeat;
   height: 100%;
+  margin-bottom: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,14 +97,12 @@ form div {
 
 .products-list {
   background: url(/images/scroll-paper.png) center/100% 100% no-repeat;
+  padding-bottom: 10%;
 }
 
 .products-list button {
-  font-size: 30px;
+  font-size: 2vw;
   color: #3c3c3c;
-  position: absolute;
-  bottom: 5%;
-  right: 7%;
   background-color: transparent;
   transition: all 0.3s ease;
 }
@@ -113,6 +117,7 @@ form div {
 }
 
 .products-list h2 {
+  font-size: 1.2vw;
   margin: 0;
 }
 
@@ -121,6 +126,32 @@ form div {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.coin {
+  background: url(/images/coin.png) center no-repeat;
+  background-size: cover;
+  width: 1.5vw;
+  height: 1.5vw;
+  float: left;
+  margin-right: 0.3vw;
+}
+
+.price-label {
+  font-size: 1.5vw;
+  display: flex;
+  align-items: center;
+}
+
+.stock-label {
+  font-size: 1.2vw;
+  opacity: 0.3;
+}
+
+.bottom-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .flex {
@@ -132,7 +163,7 @@ form div {
 .wrap {
   flex-wrap: wrap;
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto 5% auto;
 }
 
 .width-70 {
@@ -148,7 +179,7 @@ form div {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-radius: 10%;
+  border-radius: 20px;
   padding: 0 25px;
   box-shadow: inset 0 0 50px 5px rgba(88, 33, 0, 0.3),
     0 0 10px 0px rgba(88, 33, 0, 0.3);
@@ -165,12 +196,11 @@ form div {
   align-content: center;
   flex-direction: column;
   background-color: #ffce8b00;
-  margin: 20px;
   padding: 20px;
   width: 20vw;
-  box-shadow: inset 0 0 50px 5px rgba(88, 33, 0, 0.3),
-    0 0 10px 0px rgba(88, 33, 0, 0.3);
-  border-radius: 10%;
+  box-shadow: inset 0 0 50px 5px rgba(88, 33, 0, 0.2),
+    0 0 10px 0px rgba(88, 33, 0, 0.2);
+  border-radius: 20px;
   transform: scale(0.9);
 }
 
@@ -181,13 +211,21 @@ form div {
 .listed-product img {
   width: 20vw;
   height: auto;
+  margin: -1vw 0 -2.5vw 0;
   filter: drop-shadow(0 0 25px #fff);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .listed-product img:hover {
-  animation: wiggle 0.3s;
+  animation: wiggle 0.3s ease-out;
   transform: scale(1.1);
+}
+
+.listed-product img:active {
+  transform: scale(0.2);
+  position: absolute;
+  top: 53%;
+  left: 43%;
 }
 
 #logo {
