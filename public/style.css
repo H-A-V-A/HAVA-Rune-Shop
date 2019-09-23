@@ -283,6 +283,10 @@ form label {
   padding: 4%;
 }
 
+.cart h2 button i {
+  pointer-events: none;
+}
+
 .cart #cart-total,
 #cart-price {
   display: flex;
