@@ -9,11 +9,15 @@ import {
   GuestHome,
   ProductList,
   Cart,
-  SingleProduct
+  SingleProduct,
+  Unauthorized,
+  NotFound
 } from './components'
 import {me} from './store'
 import Checkout from './components/checkout'
 import {getCartTHUNK} from './store/order'
+import {PoseGroup} from 'react-pose'
+import {ParentContainer} from './components/posed'
 
 /**
  * COMPONENT
@@ -27,27 +31,34 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
+      <div className="content-body">
+        <PoseGroup>
+          <ParentContainer key={location.pathname}>
+            <Switch>
+              {/* Routes placed here are available to all visitors */}
+              <Route path="/products/:id" component={SingleProduct} />
+              <Route path="/products" component={ProductList} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/cart" component={Cart} />
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/unauthorized" component={Unauthorized} />
+              <Route exact path="/" component={GuestHome} />
 
-        <Route path="/products/:id" component={SingleProduct} />
-        <Route path="/products" component={ProductList} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/checkout" component={Checkout} />
+              {isLoggedIn && (
+                <Switch>
+                  {/* Routes placed here are only available after logging in */}
+                  <Route path="/home" component={UserHome} />
+                </Switch>
+              )}
 
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-
-        {/* <Route path="/" component={GuestHome} /> */}
-        {/* Displays our Login component as a fallback */}
-        <Route component={GuestHome} />
-      </Switch>
+              {/* <Route path="/" component={GuestHome} /> */}
+              {/* Displays our Login component as a fallback */}
+              <Route component={NotFound} />
+            </Switch>
+          </ParentContainer>
+        </PoseGroup>
+      </div>
     )
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {deleteItemTHUNK, updateCartTHUNK} from '../store/order'
 import {Link} from 'react-router-dom'
+import {ContainerVertical} from '../components'
 
 class CartItem extends React.Component {
   constructor() {
@@ -27,53 +28,50 @@ class CartItem extends React.Component {
 
   render() {
     const product = this.props.product
-    let arr = []
-    for (let i = 0; i < 10; i++) {
-      arr.push(i + 1)
-    }
-
     return (
-      <div className="cart-item">
+      <ContainerVertical className="cart-item">
         <img src={product.imageUrl} />
         <div className="cart-item-text">
           <Link to={`/products/${product.id}`}>
             <h3>{product.name}</h3>
           </Link>
-          <p>
-            Unit Price: {product.price} <i className="fas fa-coins" />
-          </p>
-          <p className="quantity-label">Quantity:</p>
-          <select name="quantity" onChange={this.handleSelect}>
-            {arr.map(index => {
-              if (index === this.props.quantity) {
-                return (
-                  <option value={index} key={index} selected>
-                    {index}
-                  </option>
-                )
-              } else {
-                return (
-                  <option value={index} key={index}>
-                    {index}
-                  </option>
+          <div>
+            <p>
+              Unit Price: {product.price} <i className="fas fa-coins" />
+            </p>
+            <div>
+              <p className="quantity-label">Quantity:</p>
+              <select
+                name="quantity"
+                onChange={this.handleSelect}
+                defaultValue={this.props.quantity}
+              >
+                {[
+                  ...Array(this.props.quantity > 10 ? this.props.quantity : 10)
+                ].map((option, index) => {
+                  return (
+                    <option value={index + 1} key={index}>
+                      {index + 1}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                this.props.deleteItem(
+                  this.props.user.id,
+                  this.props.orderId,
+                  product.id
                 )
               }
-            })}
-          </select>
+            >
+              Remove
+            </button>
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={() =>
-            this.props.deleteItem(
-              this.props.user.id,
-              this.props.orderId,
-              product.id
-            )
-          }
-        >
-          <i className="fas fa-times" />
-        </button>
-      </div>
+      </ContainerVertical>
     )
   }
 }

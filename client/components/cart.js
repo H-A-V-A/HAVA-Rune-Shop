@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getCartTHUNK} from '../store/order'
 import CartItem from './cartItem'
 import {Link} from 'react-router-dom'
+import {ParentContainer, ContainerVertical} from '../components'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -24,10 +25,10 @@ class Cart extends React.Component {
 
   render() {
     return (
-      <div className="content-body">
-        <h2>Cart:</h2>
-        <div className="flex column">
-          {this.props.cart ? (
+      <ContainerVertical className="cart">
+        <h1>Cart</h1>
+        <ParentContainer className="flex column">
+          {this.props.cart.orderProducts.length ? (
             this.props.cart.orderProducts.map(orderProduct => (
               <CartItem
                 key={orderProduct.product.id}
@@ -36,19 +37,27 @@ class Cart extends React.Component {
               />
             ))
           ) : (
-            <h2>No items in cart!</h2>
+            <h2 id="no-items">No items in cart!</h2>
           )}
-        </div>
-        <h3>
-          Total: {this.props.cart ? `${this.sumCart()} ` : '0 '}
-          <i className="fas fa-coins" />
-        </h3>
-        <Link to="/checkout">
-          <button type="button">
-            CHECKOUT <i className="fas fa-cash-register" />
-          </button>
-        </Link>
-      </div>
+        </ParentContainer>
+        <h2>
+          <div id="cart-total">
+            <p>Total: </p>
+            <p id="cart-price">
+              {this.props.cart ? `${this.sumCart()} ` : '0'}
+              <i className="coin right" />
+            </p>
+          </div>
+          <Link to="/checkout">
+            <button
+              type="button"
+              disabled={!this.props.cart.orderProducts.length}
+            >
+              Checkout <i className="fas fa-shopping-basket" />
+            </button>
+          </Link>
+        </h2>
+      </ContainerVertical>
     )
   }
 }

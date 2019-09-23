@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getProductsTHUNK} from '../store/product'
 import {addToCartTHUNK, addToGuestCartTHUNK} from '../store/order'
 import {Link} from 'react-router-dom'
+import {ParentContainer, ContainerHorizontal} from '../components'
 
 class ProductList extends Component {
   constructor() {
@@ -23,19 +24,19 @@ class ProductList extends Component {
   }
   render() {
     return (
-      <div className="flex wrap products-list">
+      <ParentContainer className="flex wrap products-list">
         {this.props.products ? (
           this.props.products.map(product => {
             return (
-              <div key={product.id} className="listed-product">
+              <ContainerHorizontal key={product.id} className="listed-product">
                 <Link to={`/products/${product.id}`}>
                   <h2>{product.name}</h2>
-                  <img src={product.imageUrl} className="lp-img" />
+                  <img src={product.imageUrl} />
                 </Link>
                 <div className="stock-label">{product.stock}×</div>
                 <div className="bottom-labels">
                   <div className="price-label">
-                    <div className="coin" />
+                    <div className="coin left" />
                     {product.price}
                   </div>
                   <button
@@ -47,13 +48,13 @@ class ProductList extends Component {
                     <i className="fas fa-cart-plus" />
                   </button>
                 </div>
-              </div>
+              </ContainerHorizontal>
             )
           })
         ) : (
           <h1>Loading...</h1>
         )}
-      </div>
+      </ParentContainer>
     )
   }
 }
