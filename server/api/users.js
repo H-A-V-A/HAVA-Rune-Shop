@@ -93,18 +93,20 @@ router.put(
       })
       await order.update({status: 'closed'})
       await Order.create({status: 'open', userId: req.user.id})
-      const orderProduct = await OrderProduct.findOne({
+      const orderProducts = await OrderProduct.findAll({
         where: {
           orderId: order.id
         }
       })
-      const product = await Product.findOne({
-        where: {
-          id: orderProduct.productId
-        }
-      })
-      await product.update({
-        stock: product.stock - Number(orderProduct.quantity)
+      orderProducts.forEach(async orderProduct => {
+        const product = await Product.findOne({
+          where: {
+            id: orderProduct.productId
+          }
+        })
+        await product.update({
+          stock: product.stock - Number(orderProduct.quantity)
+        })
       })
       res.sendStatus(204)
     } catch (error) {
