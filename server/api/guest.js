@@ -17,7 +17,7 @@ router.post('/cart/add', (req, res, next) => {
       )
 
       if (matchingItem) {
-        matchingItem.quantity += req.body.qty
+        matchingItem.quantity += Number(req.body.qty)
       } else {
         req.session.cart.push({
           product: req.body.product,

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {ContainerVertical} from '../components'
+import {PromoList} from './index'
 
 /**
  * COMPONENT
@@ -9,9 +11,10 @@ const GuestHome = props => {
   // const {email} = props
 
   return (
-    <div className="content-body">
-      <h3>Welcome to RuneShop</h3>
-    </div>
+    <ContainerVertical id="home-content">
+      <img src="/images/HavasPotions.png" id="home-banner" />
+      <PromoList />
+    </ContainerVertical>
   )
 }
 

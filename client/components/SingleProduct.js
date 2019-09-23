@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getSingleProductTHUNK} from '../store/singleProduct'
 import {addToCartTHUNK, addToGuestCartTHUNK} from '../store/order'
+import {ContainerVertical} from '../components'
 
 class SingleProduct extends Component {
   constructor() {
@@ -44,40 +45,53 @@ class SingleProduct extends Component {
       stock,
       price
     } = this.props.selectedProduct
-    let arr = []
-    for (let i = 0; i < 10; i++) {
-      arr.push(i + 1)
-    }
+
     return (
-      <div className="content-body">
-        <h1>{name}</h1>
-        <div className="flex width-70">
-          <div className="item-img">
-            <img src={imageUrl} />
-          </div>
+      <ContainerVertical>
+        <div className="flex">
           <div className="item-detail">
-            <h2>{description}</h2>
-            <p>
-              Price: {price} <i className="fas fa-coins" />
-            </p>
-            <p>Available Stock: {stock !== 0 ? stock : 'Out of Stock!'}</p>
-            <form method="POST" onSubmit={this.handleSubmit}>
-              <select name="quantity" onChange={this.handleSelect}>
-                {arr.map(index => {
-                  return (
-                    <option value={index} key={index}>
-                      {index}
-                    </option>
-                  )
-                })}
-              </select>
-              <button type="submit">
-                Add To Cart <i className="fas fa-cart-plus" />
-              </button>
-            </form>
+            <h1>{name}</h1>
+            <div className="item-detail-box">
+              <div>
+                <img src={imageUrl} />
+              </div>
+              <div>
+                <p>{description}</p>
+                <hr />
+                <div className="description">
+                  <div className="labels">
+                    <p>Price:</p>
+                    <p>Stock:</p>
+                  </div>
+                  <div className="values">
+                    <p>
+                      {price} <i className="coin right" />
+                    </p>
+                    <p>{stock !== 0 ? `${stock}×` : 'Out of Stock!'}</p>
+                  </div>
+                </div>
+                <div>
+                  <form method="POST" onSubmit={this.handleSubmit}>
+                    <select name="quantity" onChange={this.handleSelect}>
+                      {[...Array(10)].map((option, index) => {
+                        return (
+                          <option value={index + 1} key={index}>
+                            {index + 1}
+                          </option>
+                        )
+                      })}
+                    </select>
+                    <hr />
+                    <button type="submit">
+                      Add To Cart <i className="fas fa-cart-plus" />
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </ContainerVertical>
     )
   }
 }
