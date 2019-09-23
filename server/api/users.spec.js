@@ -13,7 +13,7 @@ describe('User routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/cart', () => {
+  xdescribe('/api/users/cart', () => {
     const codysEmail = 'cody@puppybook.com'
 
     // beforeEach(() => {
