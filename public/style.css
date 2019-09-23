@@ -149,7 +149,6 @@ nav #cart-nav {
 }
 
 nav #cart-qty {
-  display: none;
   position: absolute;
   top: -25%;
   background-color: #d79500;

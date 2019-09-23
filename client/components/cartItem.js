@@ -13,12 +13,6 @@ class CartItem extends React.Component {
     this.handleSelect = this.handleSelect.bind(this)
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props !== prevProps) {
-  //     console.log('Updated qty?: ', this.props.quantity)
-  //   }
-  // }
-
   handleSelect(event) {
     this.setState({
       quantity: event.target.value
@@ -54,35 +48,17 @@ class CartItem extends React.Component {
               <select
                 name="quantity"
                 onChange={this.handleSelect}
-                //defaultValue={this.props.quantity}
+                defaultValue={this.props.quantity}
               >
                 {[
                   ...Array(this.props.quantity > 10 ? this.props.quantity : 10)
                 ].map((option, index) => {
-                  if (index + 1 === this.props.quantity) {
-                    return (
-                      <option value={index + 1} key={index} selected>
-                        {index + 1}
-                      </option>
-                    )
-                  } else {
-                    return (
-                      <option value={index + 1} key={index}>
-                        {index + 1}
-                      </option>
-                    )
-                  }
-                })
-
-                //////   Using the following does not render the options correctly   //////
-
-                //   [...Array(this.props.quantity > 10 ? this.props.quantity : 10)].map((option, index) => {
-                //   return (
-                //     <option value={index + 1} key={index}>
-                //       {index + 1}
-                //     </option>
-                //   )})
-                }
+                  return (
+                    <option value={index + 1} key={index}>
+                      {index + 1}
+                    </option>
+                  )
+                })}
               </select>
             </div>
           </div>
