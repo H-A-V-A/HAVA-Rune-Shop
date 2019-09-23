@@ -346,9 +346,31 @@ form label {
   width: 40%;
 }
 
-.cart-item .quantity-label {
-  float: left;
-  margin: 0 5px 0 0;
+.cart-item-text hr {
+  margin: -1% 0;
+}
+
+.cart-item-text button {
+  font-size: 1vw;
+  margin: 5% 0;
+  float: right;
+}
+
+.cart-item-details {
+  display: flex;
+}
+
+.cart-item-details .labels {
+  font-weight: 700;
+}
+
+.cart-item-details .values {
+  margin-left: 7%;
+}
+
+.cart-item-details .values select {
+  font-size: 1vw;
+  margin: 0;
 }
 
 #no-items {

@@ -41,12 +41,16 @@ class CartItem extends React.Component {
           <Link to={`/products/${product.id}`}>
             <h3>{product.name}</h3>
           </Link>
-          <div>
-            <p>
-              Unit Price: {product.price} <i className="fas fa-coins" />
-            </p>
-            <div>
-              <p className="quantity-label">Quantity:</p>
+          <hr />
+          <div className="cart-item-details">
+            <div className="labels">
+              <p>Unit Price:</p>
+              <p>Quantity:</p>
+            </div>
+            <div className="values">
+              <p>
+                {product.price} <i className="coin right" />
+              </p>
               <select
                 name="quantity"
                 onChange={this.handleSelect}
@@ -81,19 +85,20 @@ class CartItem extends React.Component {
                 }
               </select>
             </div>
-            <button
-              type="button"
-              onClick={() =>
-                this.props.deleteItem(
-                  this.props.user.id,
-                  this.props.orderId,
-                  product.id
-                )
-              }
-            >
-              Remove
-            </button>
           </div>
+          <hr />
+          <button
+            type="button"
+            onClick={() =>
+              this.props.deleteItem(
+                this.props.user.id,
+                this.props.orderId,
+                product.id
+              )
+            }
+          >
+            Remove
+          </button>
         </div>
       </ContainerVertical>
     )
