@@ -3,21 +3,6 @@ const {Order, OrderProduct, Product} = require('../db/models')
 const auth = require('./auth')
 module.exports = router
 
-router.get('/:userId/cart', auth.isAuthorized, async (req, res, next) => {
-  try {
-    const cart = await Order.findOne({
-      where: {
-        userId: req.params.userId,
-        status: 'open'
-      },
-      include: {model: OrderProduct, include: [Product]}
-    })
-    res.json(cart)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.put(
   '/:userId/cart/update/:id',
   auth.isAuthorized,
@@ -35,9 +20,10 @@ router.put(
         where: {orderId: cart.id, productId: req.params.id}
       })
 
-      orderProduct.update({
+      await orderProduct.update({
         quantity: Number(req.body.qty)
       })
+      res.sendStatus(204)
     } catch (error) {
       next(error)
     }
@@ -69,7 +55,7 @@ router.post(
         })
       }
 
-      res.status(201)
+      res.sendStatus(201)
     } catch (error) {
       next(error)
     }
@@ -107,7 +93,6 @@ router.put(
       })
       await order.update({status: 'closed'})
       await Order.create({status: 'open', userId: req.user.id})
-      console.log('order', order)
       const orderProduct = await OrderProduct.findOne({
         where: {
           orderId: order.id
@@ -127,3 +112,18 @@ router.put(
     }
   }
 )
+
+router.get('/:userId/cart', auth.isAuthorized, async (req, res, next) => {
+  try {
+    const cart = await Order.findOne({
+      where: {
+        userId: req.params.userId,
+        status: 'open'
+      },
+      include: {model: OrderProduct, include: [Product]}
+    })
+    res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})

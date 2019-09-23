@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const {Order, OrderProduct, Product} = require('../db/models')
 module.exports = router
 
 router.post('/cart/add', (req, res, next) => {
@@ -59,6 +60,30 @@ router.delete('/cart/:productId', (req, res, next) => {
     req.session.cart = req.session.cart.filter(
       orderProduct => orderProduct.product.id !== Number(req.params.productId)
     )
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/checkout', async (req, res, next) => {
+  try {
+    let order = await Order.create({userId: null, status: 'closed'})
+    req.session.cart.forEach(async orderProduct => {
+      await OrderProduct.create({
+        orderId: order.id,
+        productId: orderProduct.product.id,
+        quantity: orderProduct.quantity
+      })
+      const product = await Product.findOne({
+        where: {
+          id: orderProduct.product.id
+        }
+      })
+      await product.update({
+        stock: product.stock - Number(orderProduct.quantity)
+      })
+    })
     res.sendStatus(204)
   } catch (error) {
     next(error)
