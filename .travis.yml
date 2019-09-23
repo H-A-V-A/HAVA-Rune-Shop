@@ -13,16 +13,18 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "RuneShop-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
-
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: hava-runeshop
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: BvR8ojgmKtjEdKM1JqsJXUdeqcRNYIvz717Pc0fySy6kvMxm/KOWhoLt/pIQdTZ3oeDQlsXMzrV8+tT0u/EwoAsQUP1J1Vuuj2wp8dTnOpwHgK5scxB3PSDqR+Ej2LEQ9SyLptKfCq04BszE7vwVvCp/CUNGOCpkHPx1cBsMl4HCc8KCCZ2cFTdE/5DSStAeCJENSdpQyybyqxh3Oc5+5NVMyahoecay0mk0r2t180Q99LoGKyJpKPbC7+BS+jrx2lbsIYT/yO6cXFAUFxCN7F0bilMfwqIyzMGBeMRHbEqKuUHzralhD/zVEo9qr75OjcdQtgoHzNqI5Z7RR1tlotYxibo0nPlSJoVUQVwkJHGG1tadh3OJsXbwik5INt7226r53ij/r0hVvUJB78prfNKYjLdMrUN4+uFN+NWfIgx5n3tBd5kHK77SE9iiZYozhLV9Myc+CUVzAUouulszu7MPCXlDAaStvPwTvNi3P3ozlF3tRplMmMKutX2OVRRqs6RC2tvaeInIexal0nTPLd0V5dC2tKkY/aRDcLYOYDsUhV1e6FU8ASz1Wd5b5WSTTdzJ3dCj1G7F2BEnS5luliVX+iaLwKTS/wkbZzhTOceOzb33VH87MeTUJE0sXyP47LX4bl8mkBmjYgcEn9o87K0Mu4hV6vNfd4eavuSEQcw=
