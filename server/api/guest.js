@@ -84,6 +84,7 @@ router.put('/checkout', async (req, res, next) => {
         stock: product.stock - Number(orderProduct.quantity)
       })
     })
+    req.session.cart = []
     res.sendStatus(204)
   } catch (error) {
     next(error)
