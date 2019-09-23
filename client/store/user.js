@@ -42,7 +42,7 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    if (method === 'login') {
+    if (method === 'login' || method === 'signup') {
       await dispatch(getCartTHUNK(res.data.id))
     }
     history.push('/home')

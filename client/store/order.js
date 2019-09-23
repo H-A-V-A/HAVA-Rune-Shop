@@ -93,8 +93,13 @@ export const deleteItemTHUNK = (userId, orderId, productId) => {
 export const placeOrderTHUNK = (userId, orderId) => {
   return async dispatch => {
     try {
-      await axios.put(`/api/users/${userId}/checkout/${orderId}`)
-      dispatch(clearCart())
+      if (userId) {
+        await axios.put(`/api/users/${userId}/checkout/${orderId}`)
+        dispatch(clearCart())
+      } else {
+        await axios.put(`/api/guest/checkout`)
+        dispatch(clearCart())
+      }
     } catch (error) {
       console.error(error)
     }
