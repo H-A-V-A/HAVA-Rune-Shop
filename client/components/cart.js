@@ -24,6 +24,8 @@ class Cart extends React.Component {
   }
 
   render() {
+    console.log('CART: ', this.props.cart)
+    console.log('USER: ', this.props.user)
     return (
       <ContainerVertical className="cart">
         <h1>Cart</h1>
@@ -44,7 +46,7 @@ class Cart extends React.Component {
           <div id="cart-total">
             <p>Total: </p>
             <p id="cart-price">
-              {this.props.cart ? `${this.sumCart()} ` : '0'}
+              {this.props.cart ? `${this.sumCart()}` : '0'}
               <i className="coin right" />
             </p>
           </div>
