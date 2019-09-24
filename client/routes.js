@@ -19,6 +19,7 @@ import {getCartTHUNK} from './store/order'
 import {PoseGroup} from 'react-pose'
 import {ParentContainer} from './components/posed'
 import OrderHistory from './components/orderHistory'
+import StripyCheckout from './components/StripeComponent'
 
 /**
  * COMPONENT
@@ -45,6 +46,8 @@ class Routes extends Component {
               <Route path="/checkout" component={Checkout} />
               <Route path="/unauthorized" component={Unauthorized} />
               <Route exact path="/" component={GuestHome} />
+
+              <Route path="/stripe" component={StripyCheckout} />
 
               {isLoggedIn && (
                 <Switch>

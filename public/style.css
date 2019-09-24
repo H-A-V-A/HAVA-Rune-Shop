@@ -669,7 +669,7 @@ form button:disabled {
 }
 
 .checkout-box button {
-  position: absolute;
+  /* position: absolute; */
   bottom: 10%;
   font-size: 1.5vw;
   padding: 2% 3%;

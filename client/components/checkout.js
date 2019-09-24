@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getCartTHUNK, placeOrderTHUNK} from '../store/order'
 import {ContainerVertical} from '../components'
+import StripyCheckout from './StripeComponent'
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -65,6 +66,8 @@ class Checkout extends React.Component {
             >
               Place Order
             </button>
+            <h3>Checkout with Stripe:</h3>
+            <StripyCheckout />
           </div>
         </div>
       </ContainerVertical>
