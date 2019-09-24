@@ -18,6 +18,7 @@ import Checkout from './components/checkout'
 import {getCartTHUNK} from './store/order'
 import {PoseGroup} from 'react-pose'
 import {ParentContainer} from './components/posed'
+import OrderHistory from './components/orderHistory'
 
 /**
  * COMPONENT
@@ -49,6 +50,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
+                  <Route path="/history" component={OrderHistory} />
                 </Switch>
               )}
 
