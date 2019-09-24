@@ -100,6 +100,13 @@ async function seed() {
       description: 'Maybe adding some gold will entice you to buy this.',
       stock: 50,
       price: 25000
+    }),
+    Product.create({
+      name: 'Hava Wand',
+      imageUrl: '/images/products/upg_wand.png',
+      description: 'Magic Stick!',
+      stock: 10,
+      price: 500000
     })
   ])
 

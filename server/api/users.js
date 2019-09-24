@@ -65,27 +65,42 @@ router.put('/:userId/checkout/', auth.isAuthorized, async (req, res, next) => {
       }
     })
 
+    Promise.all(
+      req.session.cart.orderProducts.forEach(async orderProduct => {
+        let product1 = await Product.findOne({
+          where: {id: orderProduct.productId}
+        })
+        if (orderProduct.quantity > product1.stock) {
+          console.log('Qty over stock')
+          const err = new Error('Quantity over Stock!')
+          next(err)
+        }
+      })
+    )
+
     await OrderProduct.destroy({
       where: {orderId: order.id}
     })
 
-    req.session.cart.orderProducts.forEach(async orderProduct => {
-      await OrderProduct.create({
-        orderId: order.id,
-        productId: orderProduct.product.id,
-        quantity: orderProduct.quantity
-      })
+    Promise.all(
+      req.session.cart.orderProducts.forEach(async orderProduct => {
+        await OrderProduct.create({
+          orderId: order.id,
+          productId: orderProduct.product.id,
+          quantity: orderProduct.quantity
+        })
 
-      const product = await Product.findOne({
-        where: {
-          id: orderProduct.product.id
-        }
-      })
+        const product = await Product.findOne({
+          where: {
+            id: orderProduct.product.id
+          }
+        })
 
-      await product.update({
-        stock: product.stock - Number(orderProduct.quantity)
+        await product.update({
+          stock: product.stock - Number(orderProduct.quantity)
+        })
       })
-    })
+    )
 
     await order.update({status: 'closed'})
 
