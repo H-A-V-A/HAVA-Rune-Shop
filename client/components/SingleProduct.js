@@ -23,7 +23,7 @@ class SingleProduct extends Component {
     if (this.props.user.id) {
       this.props.addToCart(
         this.props.user.id,
-        this.props.match.params.id,
+        this.props.selectedProduct,
         this.state.quantity
       )
     } else {
@@ -103,8 +103,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getSingleProduct: id => dispatch(getSingleProductTHUNK(id)),
-  addToCart: (userId, productId, qty) =>
-    dispatch(addToCartTHUNK(userId, productId, qty)),
+  addToCart: (userId, product, qty) =>
+    dispatch(addToCartTHUNK(userId, product, qty)),
   addToGuestCart: (product, qty) => dispatch(addToGuestCartTHUNK(product, qty))
 })
 

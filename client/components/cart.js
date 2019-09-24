@@ -24,8 +24,6 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log('CART: ', this.props.cart)
-    console.log('USER: ', this.props.user)
     return (
       <ContainerVertical className="cart">
         <h1>Cart</h1>
@@ -33,7 +31,7 @@ class Cart extends React.Component {
           {this.props.cart.orderProducts.length ? (
             this.props.cart.orderProducts.map(orderProduct => (
               <CartItem
-                key={orderProduct.product.id}
+                key={orderProduct.productId}
                 product={orderProduct.product}
                 quantity={orderProduct.quantity}
               />

@@ -66,11 +66,7 @@ class CartItem extends React.Component {
           <button
             type="button"
             onClick={() =>
-              this.props.deleteItem(
-                this.props.user.id,
-                this.props.orderId,
-                product.id
-              )
+              this.props.deleteItem(this.props.user.id, product.id)
             }
           >
             Remove
@@ -87,8 +83,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  deleteItem: (userId, orderId, productId) =>
-    dispatch(deleteItemTHUNK(userId, orderId, productId)),
+  deleteItem: (userId, productId) =>
+    dispatch(deleteItemTHUNK(userId, productId)),
   updateCart: (userId, productId, qty) =>
     dispatch(updateCartTHUNK(userId, productId, qty))
 })
