@@ -11,7 +11,7 @@ const NotFound = props => {
         <p>404</p>
         <p>Not Found!</p>
       </div>
-      <img src="/images/Wizard.png" />
+      <img src="/images/wizard.png" />
     </ContainerVertical>
   )
 }
