@@ -11,7 +11,7 @@ const Unauthorized = props => {
         <p>401</p>
         <p>Unauthorized</p>
       </div>
-      <img src="/images/Guard.png" />
+      <img src="/images/guard.png" />
     </ContainerVertical>
   )
 }
