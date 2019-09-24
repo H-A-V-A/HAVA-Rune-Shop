@@ -94,7 +94,7 @@ export const placeOrderTHUNK = (userId, orderId) => {
   return async dispatch => {
     try {
       if (userId) {
-        await axios.put(`/api/users/${userId}/checkout/${orderId}`)
+        await axios.put(`/api/users/${userId}/checkout`, {orderId})
         dispatch(clearCart())
       } else {
         await axios.put(`/api/guest/checkout`)

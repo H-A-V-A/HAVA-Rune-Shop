@@ -56,44 +56,60 @@ router.delete(
   }
 )
 
-router.put(
-  '/:userId/checkout/:orderId/',
-  auth.isAuthorized,
-  async (req, res, next) => {
-    try {
-      const order = await Order.findOne({
+router.put('/:userId/checkout/', auth.isAuthorized, async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {
+        id: req.body.orderId,
+        status: 'open'
+      }
+    })
+
+    req.session.cart.orderProducts.forEach(async orderProduct => {
+      const [op, wasCreated] = await OrderProduct.findOrCreate({
         where: {
-          id: req.params.orderId,
-          status: 'open'
+          orderId: order.id,
+          productId: orderProduct.product.id
+        },
+        defaults: {
+          quantity: orderProduct.quantity
         }
       })
-      await order.update({status: 'closed'})
-      await Order.create({status: 'open', userId: req.user.id})
-      const orderProducts = await OrderProduct.findAll({
+
+      if (!wasCreated) {
+        await op.update({quantity: orderProduct.quantity})
+      }
+
+      const product = await Product.findOne({
         where: {
-          orderId: order.id
+          id: orderProduct.product.id
         }
       })
-      orderProducts.forEach(async orderProduct => {
-        const product = await Product.findOne({
-          where: {
-            id: orderProduct.productId
-          }
-        })
-        await product.update({
-          stock: product.stock - Number(orderProduct.quantity)
-        })
+
+      await product.update({
+        stock: product.stock - Number(orderProduct.quantity)
       })
-      res.sendStatus(204)
-    } catch (error) {
-      next(error)
-    }
+    })
+
+    await order.update({status: 'closed'})
+
+    await Order.create({status: 'open', userId: req.user.id})
+    req.session.cart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        status: 'open'
+      },
+      include: {model: OrderProduct, include: [Product]}
+    })
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
 router.get('/:userId/cart', auth.isAuthorized, async (req, res, next) => {
   try {
-    if (!req.session.cart.id) {
+    if (!req.session.cart || !req.session.cart.id) {
       req.session.cart = await Order.findOne({
         where: {
           userId: req.params.userId,

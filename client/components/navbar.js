@@ -7,7 +7,6 @@ import {logout} from '../store'
 class Navbar extends React.Component {
   render() {
     const {handleClick, isLoggedIn, cart} = this.props
-
     return (
       <div id="header">
         <Link to="/">
