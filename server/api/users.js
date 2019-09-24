@@ -3,76 +3,52 @@ const {Order, OrderProduct, Product} = require('../db/models')
 const auth = require('./auth')
 module.exports = router
 
-router.put(
-  '/:userId/cart/update/:id',
-  auth.isAuthorized,
-  async (req, res, next) => {
-    try {
-      const cart = await Order.findOne({
-        where: {
-          userId: req.params.userId,
-          status: 'open'
-        },
-        include: {model: OrderProduct, include: [Product]}
-      })
+router.put('/:userId/cart/update', auth.isAuthorized, (req, res, next) => {
+  try {
+    const orderProduct = req.session.cart.orderProducts.find(product => {
+      return product.productId === req.body.productId
+    })
 
-      const orderProduct = await OrderProduct.findOne({
-        where: {orderId: cart.id, productId: req.params.id}
-      })
+    orderProduct.quantity = Number(req.body.qty)
 
-      await orderProduct.update({
-        quantity: Number(req.body.qty)
-      })
-      res.sendStatus(204)
-    } catch (error) {
-      next(error)
-    }
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
-router.post(
-  '/:userId/cart/add/:id',
-  auth.isAuthorized,
-  async (req, res, next) => {
-    try {
-      const cart = await Order.findOne({
-        where: {userId: req.params.userId, status: 'open'}
+router.post('/:userId/cart/add', auth.isAuthorized, (req, res, next) => {
+  try {
+    const orderProduct = req.session.cart.orderProducts.find(product => {
+      return product.productId === req.body.product.id
+    })
+    if (orderProduct) {
+      orderProduct.quantity += Number(req.body.qty)
+    } else {
+      req.session.cart.orderProducts.push({
+        quantity: Number(req.body.qty),
+        orderId: req.session.cart.id,
+        productId: req.body.product.id,
+        product: req.body.product
       })
-
-      const orderProduct = await OrderProduct.findOne({
-        where: {orderId: cart.id, productId: req.params.id}
-      })
-
-      if (orderProduct) {
-        await orderProduct.update({
-          quantity: orderProduct.quantity + Number(req.body.qty)
-        })
-      } else {
-        await OrderProduct.create({
-          quantity: req.body.qty,
-          orderId: cart.id,
-          productId: req.params.id
-        })
-      }
-
-      res.sendStatus(201)
-    } catch (error) {
-      next(error)
     }
+
+    res.sendStatus(201)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
 router.delete(
-  '/:userId/cart/:orderId/:productId',
+  '/:userId/cart/:productId',
   auth.isAuthorized,
-  async (req, res, next) => {
+  (req, res, next) => {
     try {
-      await OrderProduct.destroy({
-        where: {
-          orderId: req.params.orderId,
-          productId: req.params.productId
+      req.session.cart.orderProducts = req.session.cart.orderProducts.filter(
+        orderProduct => {
+          return orderProduct.productId !== Number(req.params.productId)
         }
-      })
+      )
       res.sendStatus(204)
     } catch (error) {
       next(error)
@@ -117,14 +93,16 @@ router.put(
 
 router.get('/:userId/cart', auth.isAuthorized, async (req, res, next) => {
   try {
-    const cart = await Order.findOne({
-      where: {
-        userId: req.params.userId,
-        status: 'open'
-      },
-      include: {model: OrderProduct, include: [Product]}
-    })
-    res.json(cart)
+    if (!req.session.cart.id) {
+      req.session.cart = await Order.findOne({
+        where: {
+          userId: req.params.userId,
+          status: 'open'
+        },
+        include: {model: OrderProduct, include: [Product]}
+      })
+    }
+    res.json(req.session.cart)
   } catch (error) {
     next(error)
   }

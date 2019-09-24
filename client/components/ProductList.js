@@ -13,7 +13,7 @@ class ProductList extends Component {
 
   handleAddToCart(product) {
     if (this.props.user.id) {
-      this.props.addToCart(this.props.user.id, product.id, 1)
+      this.props.addToCart(this.props.user.id, product, 1)
     } else {
       this.props.addToGuestCart(product, 1)
     }
@@ -66,8 +66,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getAllProducts: () => dispatch(getProductsTHUNK()),
-  addToCart: (userId, productId, qty) =>
-    dispatch(addToCartTHUNK(userId, productId, qty)),
+  addToCart: (userId, product, qty) =>
+    dispatch(addToCartTHUNK(userId, product, qty)),
   addToGuestCart: (product, qty) => dispatch(addToGuestCartTHUNK(product, qty))
 })
 

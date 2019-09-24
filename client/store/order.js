@@ -42,10 +42,10 @@ export const getCartTHUNK = userId => {
   }
 }
 
-export const addToCartTHUNK = (userId, productId, qty) => {
+export const addToCartTHUNK = (userId, product, qty) => {
   return async dispatch => {
     try {
-      await axios.post(`/api/users/${userId}/cart/add/${productId}`, {qty})
+      await axios.post(`/api/users/${userId}/cart/add`, {product, qty})
       let {data} = await axios.get(`/api/users/${userId}/cart`)
       dispatch(getCart(data))
     } catch (error) {
@@ -58,7 +58,7 @@ export const updateCartTHUNK = (userId, productId, qty) => {
   return async dispatch => {
     try {
       if (userId) {
-        await axios.put(`/api/users/${userId}/cart/update/${productId}`, {qty})
+        await axios.put(`/api/users/${userId}/cart/update`, {productId, qty})
         let {data} = await axios.get(`/api/users/${userId}/cart`)
         dispatch(getCart(data))
       } else {
@@ -73,11 +73,11 @@ export const updateCartTHUNK = (userId, productId, qty) => {
   }
 }
 
-export const deleteItemTHUNK = (userId, orderId, productId) => {
+export const deleteItemTHUNK = (userId, productId) => {
   return async dispatch => {
     try {
-      if (orderId) {
-        await axios.delete(`/api/users/${userId}/cart/${orderId}/${productId}`)
+      if (userId) {
+        await axios.delete(`/api/users/${userId}/cart/${productId}`)
         dispatch(deleteItem(productId))
       } else {
         await axios.delete(`/api/guest/cart/${productId}`)
