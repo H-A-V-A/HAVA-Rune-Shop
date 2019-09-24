@@ -17,7 +17,7 @@ class OrderHistory extends React.Component {
 
   render() {
     return (
-      <ContainerVertical>
+      <div>
         <h1>Order History for {this.props.user.email}</h1>
         <hr />
         <ParentContainer className="flex column">
@@ -25,27 +25,30 @@ class OrderHistory extends React.Component {
             {this.props.history.map(order => {
               const orderDate = new Date(order.updatedAt)
               return (
-                <div key={order.id}>
-                  <h1>
+                <ContainerVertical key={order.id}>
+                  <h3>
                     Order #{order.id} – Date: {orderDate.toDateString()}
-                  </h1>
-                  {order.orderProducts.map(orderProduct => {
-                    return (
-                      <div key={orderProduct.id}>
-                        <Link to={`/products/${orderProduct.productId}`}>
-                          {orderProduct.product.name} x {orderProduct.quantity}
-                        </Link>
-                      </div>
-                    )
-                  })}
+                  </h3>
+                  <ul>
+                    {order.orderProducts.map(orderProduct => {
+                      return (
+                        <li key={orderProduct.id}>
+                          <Link to={`/products/${orderProduct.productId}`}>
+                            {orderProduct.product.name} x{' '}
+                            {orderProduct.quantity}
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
                   <h4>Total: {this.sumCart(order)}</h4>
                   <hr />
-                </div>
+                </ContainerVertical>
               )
             })}
           </div>
         </ParentContainer>
-      </ContainerVertical>
+      </div>
     )
   }
 }
