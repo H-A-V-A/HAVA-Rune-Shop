@@ -65,20 +65,16 @@ router.put('/:userId/checkout/', auth.isAuthorized, async (req, res, next) => {
       }
     })
 
-    req.session.cart.orderProducts.forEach(async orderProduct => {
-      const [op, wasCreated] = await OrderProduct.findOrCreate({
-        where: {
-          orderId: order.id,
-          productId: orderProduct.product.id
-        },
-        defaults: {
-          quantity: orderProduct.quantity
-        }
-      })
+    await OrderProduct.destroy({
+      where: {orderId: order.id}
+    })
 
-      if (!wasCreated) {
-        await op.update({quantity: orderProduct.quantity})
-      }
+    req.session.cart.orderProducts.forEach(async orderProduct => {
+      await OrderProduct.create({
+        orderId: order.id,
+        productId: orderProduct.product.id,
+        quantity: orderProduct.quantity
+      })
 
       const product = await Product.findOne({
         where: {
