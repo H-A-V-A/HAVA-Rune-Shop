@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {ContainerVertical} from '../components'
-import {Link} from 'react-router-dom'
+import {ContainerVertical, LatestOrder} from '../components'
 
 /**
  * COMPONENT
@@ -28,6 +27,7 @@ export const UserHome = props => {
       </div>
       <div className="account-detail">
         <h3>Order History</h3>
+        <LatestOrder />
       </div>
     </ContainerVertical>
   )

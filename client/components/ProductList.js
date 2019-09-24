@@ -44,6 +44,7 @@ class ProductList extends Component {
                     onClick={() => {
                       this.handleAddToCart(product)
                     }}
+                    disabled={product.stock === 0}
                   >
                     <i className="fas fa-cart-plus" />
                   </button>

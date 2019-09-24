@@ -61,15 +61,14 @@ async function seed() {
       name: 'Mystical Letter',
       imageUrl: '/images/products/envelope.png',
       description:
-        'If you are thinking it is just a folded up Treasure Seeker Map, you might be correct.',
+        'A random note from the post office. Seems to be from a Magic Guild called the IRS',
       stock: 300,
       price: 3600
     }),
     Product.create({
       name: 'The Forbidden Tome',
       imageUrl: '/images/products/tome.png',
-      description:
-        'If you look closely, you can see the pages are all made of the same map.',
+      description: 'If you look closely, you can see the pages are all blank.',
       stock: 150,
       price: 6000
     }),
@@ -102,9 +101,23 @@ async function seed() {
       price: 25000
     }),
     Product.create({
-      name: 'Hava Wand',
+      name: 'Warrior Sword',
+      imageUrl: '/images/products/upg_sword.png',
+      description: 'A big knife.',
+      stock: 50,
+      price: 35000
+    }),
+    Product.create({
+      name: 'Apprentice Wand',
+      imageUrl: '/images/products/wand.png',
+      description: 'Lesser magic stick.',
+      stock: 50,
+      price: 25000
+    }),
+    Product.create({
+      name: 'Hava’s Wand',
       imageUrl: '/images/products/upg_wand.png',
-      description: 'Magic Stick!',
+      description: 'Better magic stick!',
       stock: 10,
       price: 500000
     })

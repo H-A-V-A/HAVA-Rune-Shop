@@ -4,13 +4,6 @@
   outline: none;
 }
 
-html,
-body,
-#app,
-#app > div {
-  height: 100%;
-}
-
 body {
   color: #775126;
   font-family: 'Laila', sans-serif;
@@ -21,6 +14,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #c79450;
 }
 
 p {
@@ -50,6 +44,10 @@ h2 {
 
 h3 {
   font-size: 1.3vw;
+}
+
+h4 {
+  font-size: 1vw;
 }
 
 hr {
@@ -97,6 +95,10 @@ button:active {
     #d82929 100%
   );
   box-shadow: inset 0 0 5px #ffffff, 0 0 2px rgba(152, 50, 50, 0.5);
+}
+
+button i {
+  pointer-events: none;
 }
 
 label {
@@ -309,7 +311,9 @@ form label {
   font-size: 1.4vw;
 }
 
-.cart h2 a button:disabled {
+.cart h2 a button:disabled,
+.bottom-labels button:disabled,
+form button:disabled {
   filter: saturate(0);
   opacity: 0.7;
 }
@@ -673,6 +677,7 @@ form label {
 
 #account-container {
   width: 60%;
+  margin: 1% 0;
 }
 
 #account-container > h1 + div {

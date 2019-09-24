@@ -82,7 +82,7 @@ class SingleProduct extends Component {
                       })}
                     </select>
                     <hr />
-                    <button type="submit">
+                    <button type="submit" disabled={stock === 0}>
                       Add To Cart <i className="fas fa-cart-plus" />
                     </button>
                   </form>
