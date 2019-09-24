@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {toast} from 'react-toastify'
 
 /**
  * ACTION TYPES
@@ -49,6 +50,7 @@ export const addToCartTHUNK = (userId, product, qty) => {
       await axios.post(`/api/users/${userId}/cart/add`, {product, qty})
       let {data} = await axios.get(`/api/users/${userId}/cart`)
       dispatch(getCart(data))
+      toast.warn('Added to cart!')
     } catch (error) {
       console.error(error)
     }
@@ -97,10 +99,12 @@ export const placeOrderTHUNK = (userId, orderId) => {
       if (userId) {
         await axios.put(`/api/users/${userId}/checkout`, {orderId})
         dispatch(clearCart())
+        toast.success('Order placed!')
         history.push('/products')
       } else {
         await axios.put(`/api/guest/checkout`)
         dispatch(clearCart())
+        toast.success('Order placed!')
         history.push('/products')
       }
     } catch (error) {
@@ -117,6 +121,7 @@ export const addToGuestCartTHUNK = (product, qty) => {
         qty
       })
       dispatch(getCart({orderProducts: data}))
+      toast.warn('Added to cart!')
     } catch (error) {
       console.error(error)
     }
