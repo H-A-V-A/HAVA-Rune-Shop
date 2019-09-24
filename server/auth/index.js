@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Order} = require('../db/models')
+const {User, Order, OrderProduct} = require('../db/models')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -12,6 +12,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
+      req.session.cart = {orderProducts: []}
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -33,7 +34,19 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
-router.post('/logout', (req, res) => {
+router.post('/logout', async (req, res) => {
+  await OrderProduct.destroy({
+    where: {orderId: req.session.cart.id}
+  })
+
+  req.session.cart.orderProducts.forEach(async orderProduct => {
+    await OrderProduct.create({
+      orderId: req.session.cart.id,
+      productId: orderProduct.product.id,
+      quantity: orderProduct.quantity
+    })
+  })
+
   req.logout()
   req.session.destroy()
   res.redirect('/')
