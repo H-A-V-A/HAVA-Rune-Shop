@@ -671,6 +671,32 @@ form label {
   padding: 2% 3%;
 }
 
+#account-container {
+  width: 60%;
+}
+
+#account-container > h1 + div {
+  display: flex;
+  justify-content: center;
+}
+
+#account-container > h1 + div .account-detail {
+  width: 45%;
+}
+
+.account-detail {
+  box-shadow: inset 0 0 50px 5px rgba(88, 33, 0, 0.2),
+    0 0 10px 0px rgba(88, 33, 0, 0.2);
+  border-radius: 10px;
+  padding: 1vw;
+
+  margin: 1vw;
+}
+
+.account-detail h3 {
+  margin: 0;
+}
+
 @keyframes wiggle {
   0% {
     transform: rotate(0deg);
