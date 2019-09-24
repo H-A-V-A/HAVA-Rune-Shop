@@ -1,4 +1,6 @@
 import axios from 'axios'
+import history from '../history'
+import {toast} from 'react-toastify'
 
 /**
  * ACTION TYPES
@@ -7,6 +9,7 @@ const GET_CART = 'GET_CART'
 const DELETE_ITEM = 'DELETE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 const REMOVE_USER = 'REMOVE_USER'
+const GET_HISTORY = 'GET_HISTORY'
 /**
  * INITIAL STATE
  */
@@ -23,6 +26,7 @@ const initialState = {
 const getCart = cart => ({type: GET_CART, cart})
 const deleteItem = id => ({type: DELETE_ITEM, id})
 const clearCart = () => ({type: CLEAR_CART})
+const getHistory = history => ({type: GET_HISTORY, history})
 /**
  * THUNK CREATORS
  */
@@ -48,6 +52,7 @@ export const addToCartTHUNK = (userId, product, qty) => {
       await axios.post(`/api/users/${userId}/cart/add`, {product, qty})
       let {data} = await axios.get(`/api/users/${userId}/cart`)
       dispatch(getCart(data))
+      toast.warn('Added to cart!')
     } catch (error) {
       console.error(error)
     }
@@ -96,9 +101,13 @@ export const placeOrderTHUNK = (userId, orderId) => {
       if (userId) {
         await axios.put(`/api/users/${userId}/checkout`, {orderId})
         dispatch(clearCart())
+        toast.success('Order placed!')
+        history.push('/products')
       } else {
         await axios.put(`/api/guest/checkout`)
         dispatch(clearCart())
+        toast.success('Order placed!')
+        history.push('/products')
       }
     } catch (error) {
       console.error(error)
@@ -114,6 +123,18 @@ export const addToGuestCartTHUNK = (product, qty) => {
         qty
       })
       dispatch(getCart({orderProducts: data}))
+      toast.warn('Added to cart!')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const getHistoryTHUNK = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/${userId}/history`)
+      dispatch(getHistory(data))
     } catch (error) {
       console.error(error)
     }
@@ -140,6 +161,8 @@ export default function(state = initialState, action) {
     case CLEAR_CART:
     case REMOVE_USER: //Fall through
       return {...state, cart: initialState.cart}
+    case GET_HISTORY:
+      return {...state, history: action.history}
     default:
       return state
   }

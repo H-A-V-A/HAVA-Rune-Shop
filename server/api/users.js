@@ -134,3 +134,15 @@ router.get('/:userId/cart', auth.isAuthorized, async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/:userId/history', auth.isAuthorized, async (req, res, next) => {
+  try {
+    const pastOrders = await Order.findAll({
+      where: {userId: req.params.userId, status: 'closed'},
+      include: {model: OrderProduct, include: [Product]}
+    })
+    res.send(pastOrders)
+  } catch (error) {
+    next(error)
+  }
+})
