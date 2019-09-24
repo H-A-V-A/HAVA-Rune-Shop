@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -96,9 +97,11 @@ export const placeOrderTHUNK = (userId, orderId) => {
       if (userId) {
         await axios.put(`/api/users/${userId}/checkout`, {orderId})
         dispatch(clearCart())
+        history.push('/products')
       } else {
         await axios.put(`/api/guest/checkout`)
         dispatch(clearCart())
+        history.push('/products')
       }
     } catch (error) {
       console.error(error)
