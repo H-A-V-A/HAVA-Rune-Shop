@@ -335,7 +335,7 @@ form button:disabled {
 .cart-item img {
   filter: drop-shadow(0 10px 15px #84572d);
   width: 40%;
-  height: 40%;
+  height: auto;
 }
 
 .cart-item h3 {
@@ -700,6 +700,10 @@ form button:disabled {
 
 .account-detail h3 {
   margin: 0;
+}
+
+.StripeCheckout {
+  margin-bottom: 4%;
 }
 
 @keyframes wiggle {

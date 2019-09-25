@@ -66,7 +66,7 @@ class Checkout extends React.Component {
             >
               Place Order
             </button>
-            <h3>Checkout with Stripe:</h3>
+            <h3>Checkout with Stripe</h3>
             <StripyCheckout />
           </div>
         </div>
