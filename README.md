@@ -1,11 +1,6 @@
-# Members
+# Hava's RuneShop
 
-* Henri!
-* Allen Guo
-* Victor Cheng
-* Austin Trow
-
-# HAVA RuneShop
+![Hava's RuneShop](https://raw.githubusercontent.com/H-A-V-A/HAVA-Rune-Shop/master/public/images/HavasRuneshop.png)
 
 _Bespoke Supplies for the Discerning Adventurer_
 
@@ -20,3 +15,11 @@ Creating an account at the RuneShop is always optional, as guests have access to
 ## Payment
 
 Currently all purchases are accepted in Imperial Gold Pieces and paid for by a generous donation from Fullstack Academy of Code. Integration with Stipe using a currency called 'US Dollars' is in progress.
+
+## Development Team
+
+* Henri Bravo
+* Allen Guo
+* Victor Cheng
+* Austin Trow
+
