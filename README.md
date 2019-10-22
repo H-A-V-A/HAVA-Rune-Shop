@@ -8,8 +8,44 @@ _Bespoke Supplies for the Discerning Adventurer_
 
 Searching for Potions, Gear, Armor, or Weapons for you latest quest to the Mines of Dzluk Thuul? Look no further than Hava's RuneShop! Conveniently deployed on Heroku using Travis CI/CD, this modern business offers top quality supplies to both one time guests and returning members.
 
+## Table of Contents
+
+- [Hava's RuneShop](#Hava's-RuneShop)
+- [Description](#Description)
+- [Tech Stack](#Tech-Stack)
+  - [React](#React)
+  - [Redux](#Redux)
+  - [PostgreSQL](#PostgreSql)
+  - [Sequelize](#Sequelize)
+- [Joining Our Shop](#Joining-Our-Shop)
+- [Payment](#Payment)
+- [Development Team](#Development-Team)
+   - [Henri Bravo](#Henri-Bravo)
+   - [Allen Guo](#Allen-Guo)
+   - [Victor Cheng](#Victor-Cheng)
+   - [Austin Trow](#Austin-Trow)
+
 ## Description
 Hava's RuneShop is an e-commerce website where users may purchase a variety of fantasy products. It is built using React and other JavaScript libraries such as Express, Redux, and Sequelize. Users may create an account or use an existing Google account to log in. Users can add to or remove items from their cart and checkout their items for purchase.
+
+## Tech Stack
+
+### React 
+
+- React is a JavaScript library for building user interfaces.
+- React is a single-page application rendering components that rerenders when the state changes.
+
+### Redux
+
+- Redux is a JavaScript library for managing the application state.
+
+### PostgreSQL
+
+- PostgreSQL is a relational database management system designed to handle range of data.
+
+### Sequelize
+
+- A promise-based Node.js ORM for PostgreSQL.
 
 ## Joining Our Shop
 
@@ -23,7 +59,26 @@ Currently all purchases are accepted in Imperial Gold Pieces. Integration with S
 
 ## Development Team
 
-* Henri Bravo
-* Allen Guo
-* Victor Cheng
-* Austin Trow
+### Henri Bravo
+
+Github: https://github.com/HencTheTank
+
+LinkedIn: https://www.linkedin.com/in/henri-bravo/
+
+### Allen Guo
+
+Github: https://github.com/ag1465
+
+LinkedIn: https://www.linkedin.com/in/ag1465/
+
+### Victor Cheng
+
+Github: https://github.com/victorcheng23
+
+LinkedIn: https://www.linkedin.com/in/cheng-victor/
+
+### Austin Trow
+
+Github: https://github.com/ABTrow
+
+LinkedIn: https://www.linkedin.com/in/austin-trow/
