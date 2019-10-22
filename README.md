@@ -10,7 +10,6 @@ Searching for Potions, Gear, Armor, or Weapons for you latest quest to the Mines
 
 ## Table of Contents
 
-- [Hava's RuneShop](#Hava's-RuneShop)
 - [Description](#Description)
 - [Tech Stack](#Tech-Stack)
   - [React](#React)
