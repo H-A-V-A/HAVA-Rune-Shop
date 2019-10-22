@@ -1,6 +1,6 @@
 # Hava's RuneShop
 
-![Hava's RuneShop](https://raw.githubusercontent.com/H-A-V-A/HAVA-Rune-Shop/master/public/images/HavasRuneshop.png)
+![Home](https://github.com/H-A-V-A/HAVA-Rune-Shop/blob/master/public/images/home.png?)
 
 **Link:** [Hava's RuneShop](https://hava-runeshop.herokuapp.com)
 
